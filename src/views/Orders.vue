@@ -26,7 +26,6 @@ export default {
 	},
 	computed: {
 		currentActivity() {
-			console.log(this)
 			return this.$store.getters.getActivityByNo(this.$route.query.no)
 		}
 
