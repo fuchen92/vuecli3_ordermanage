@@ -1,0 +1,83 @@
+{
+    "Account": {
+        "Mobile": 17520425633,
+        "Id": 1,
+        "Name": "李克强",
+        "Company": "环球旅讯",
+        "Job": "web",
+        "Tel": "",
+        "Email": "110@qq.com"
+    },
+    "ActivityList": [
+        {
+            "No": 63,
+            "Link": "/tdc2018/",
+            "Logo": "activity-1.png",
+            "Name": "2018环球旅讯峰会&中国数字旅游展",
+            "Alias": "2018 TDC",
+            "Time": "2018年9月19日 - 21日",
+            "Site": "上海长风跨国采购中心",
+            "HasOrder": true,
+            "OrderList": [
+                {
+                    "Id": 28650,
+                    "Date": "2018-08-22",
+                    "Time": "10:18",
+                    "Money": "￥13200",
+                    "Payment": "支付宝",
+                    "Contact": "叶胜",
+                    "PayStatus": 2,
+                    "InvoiceType": 1,
+                    "InvoiceExpress": 0,
+                    "InvoiceStatus": 10,
+                    "Tickets": [
+                        {
+                            "Type": 1,
+                            "TypeText": "VIP票",
+                            "Amount": 2,
+                            "Allot": 2
+                        },
+                        {
+                            "Type": 2,
+                            "TypeText": "直通票",
+                            "Amount": 2,
+                            "Allot": 1
+                        },
+                        {
+                            "Type": 3,
+                            "TypeText": "普通票",
+                            "Amount": 2,
+                            "Allot": 1
+                        },
+                        {
+                            "Type": 4,
+                            "TypeText": "展览票",
+                            "Amount": 2,
+                            "Allot": 1
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "No": 56,
+            "Link": "/hmc2018/",
+            "Logo": "activity-3.png",
+            "Name": "2018中国住宿业峰会",
+            "Alias": "2018 HMC",
+            "Time": "2018年6月27日 - 28日",
+            "Site": "杭州华盛达雷迪森广场酒店",
+            "HasOrder": false
+        },
+        {
+            "No": 46,
+            "Link": "/amc2018/",
+            "Logo": "activity-4.png",
+            "Name": "2018中国航空营销峰会",
+            "Alias": "2018 AMC",
+            "Time": "2018年7月25日 - 26日",
+            "Site": "上海东锦江希尔顿逸林酒店",
+            "HasOrder": false
+        }
+    ]
+}
