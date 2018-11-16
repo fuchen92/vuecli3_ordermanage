@@ -2,10 +2,10 @@
 	<div class="activity-title-box">
 		<div class="container">
 			<h1 class="activity-title lt">
-				<a href="/member/orders?no=63">2018环球旅讯峰会&amp;数字旅游展</a>
+				<router-link :to="'/orders?no=' + this.$route.query.no">{{ currentActivity.Name }}</router-link>
 			</h1>
-			<span class="activity-time">2018年9月19日 - 21日</span>
-			<span class="activity-site">上海跨国采购会展中心</span>
+			<span class="activity-time">{{ currentActivity.Time }}</span>
+			<span class="activity-site">{{ currentActivity.Site }}</span>
 			<div class="more-activity rt">
 				查看2018其他活动
 				<div class="other-activities">
@@ -20,7 +20,12 @@
 
 <script>
 export default {
-
+	props: {
+		currentActivity: {
+			type: Object,
+			require: true
+		}
+	}
 }
 </script>
 

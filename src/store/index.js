@@ -12,11 +12,13 @@ export default new Vuex.Store({
 	},
 	mutations: {
 		setAccount(state, { account }) {
-			// Vue.set(state.Account, account)
+			// Vue.set(state.Account, "Account", account)
+			// console.log(state.Account)
 			state.Account = account
 		},
 		setActivity(state, { activityList }) {
-			// Vue.set(state.ActivityList, activityList)
+			// Vue.set(state.ActivityList, "ActivityList", activityList)
+			// console.log(state.ActivityList)
 			state.ActivityList = activityList
 		}
 	},
@@ -34,7 +36,7 @@ export default new Vuex.Store({
 	},
 	getters: {
 		getActivityByNo: (state) => (no) => {
-			return state.ActivityList.filter(activity => activity.No == no)
+			return state.ActivityList.find(activity => activity.No == no)
 		}
 	}
 })

@@ -109,7 +109,7 @@
 import MenuTitle from "@/components/MenuTitle.vue"
 export default {
 	mounted() {
-		console.log(this)
+		// console.log(this)
 	},
 	data() {
 		return {

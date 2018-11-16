@@ -1,6 +1,6 @@
 <template>
 	<div class="ordersPage">
-		<ActivityBar></ActivityBar>
+		<ActivityBar :currentActivity="currentActivity"></ActivityBar>
 		<div class="order-content">
 			<div class="siderbar-menu lt">
 				<router-link class="siderbar-menuitem" :to="'/orders?no=' + this.$route.query.no" active-class="active" exact>我的订单</router-link>
@@ -25,9 +25,11 @@ export default {
 		ActivityBar
 	},
 	computed: {
-		...mapGetters([
-			"getActivityByNo"
-		])
+		currentActivity() {
+			console.log(this)
+			return this.$store.getters.getActivityByNo(this.$route.query.no)
+		}
+
 	}
 }
 </script>
