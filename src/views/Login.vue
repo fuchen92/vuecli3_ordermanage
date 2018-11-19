@@ -123,7 +123,7 @@ export default {
 			// alert("恭喜你，登录成功");
 			let _redirect = this.$route.query.redirect
 			if (_redirect) {
-				this.$router.push({ path: "/" + _redirect })
+				this.$router.push({ path: "/" + _redirect, query: { no: this.$route.query.no } })
 			} else {
 				this.$router.push({ path: "/" })
 			}

@@ -29,65 +29,65 @@
 							<td class="white-divide" colspan="9"></td>
 						</tr>
 						<template v-for="order in orderList">
-							<tr class="hasborder" v-bind:key="order.id">
-								<td>{{ order.id }}</td>
+							<tr class="hasborder" v-bind:key="order.Id">
+								<td>{{ order.Id }}</td>
 								<td>
-									<span class="order-date">{{ order.date }}</span>
-									<span class="order-time">{{ order.time }}</span>
+									<span class="order-date">{{ order.Date }}</span>
+									<span class="order-time">{{ order.Time }}</span>
 								</td>
 								<td>
-									<strong>{{ order.money }}</strong>
+									<strong>{{ order.Money }}</strong>
 								</td>
-								<td>{{ order.payment }}</td>
-								<td>{{ order.contact }}</td>
+								<td>{{ order.Payment }}</td>
+								<td>{{ order.Contact }}</td>
 								<td>
-									<span class="paystatus" v-if="order.paystatus == 2 || order.passtatus == 3">已付款</span>
-									<template v-else-if="order.paystatus == 0">
+									<span class="paystatus" v-if="order.PayStatus == 2 || order.PayStatus == 3">已付款</span>
+									<template v-else-if="order.PayStatus == 0">
 										<span class="paystatus">未审核</span>
 										<span class="cancel-order" @click="cancelOrder(order.id)">取消订单</span>
 									</template>
-									<template v-else-if="order.paystatus == 1">
+									<template v-else-if="order.PayStatus == 1">
 										<span class="paystatus">未支付</span>
 										<span class="cancel-order" @click="cancelOrder(order.id)">取消订单</span>
 									</template>
-									<span class="paystatus" v-else-if="order.paystatus == 5">已取消</span>
+									<span class="paystatus" v-else-if="order.PayStatus == 5">已取消</span>
 								</td>
 								<td>
-									<template v-if="order.paystatus == 0 || order.paystatus == 1 || order.paystatus == 2 || order.paystatus == 3">
-										<template v-if="order.invoiceType == 0">
+									<template v-if="order.PayStatus == 0 || order.PayStatus == 1 || order.PayStatus == 2 || order.PayStatus == 3">
+										<template v-if="order.InvoiceType == 0">
 											<span class="invoicestatus">未填写</span>
 											<router-link :to="{ path: '/orders/invoice', query: { no: this.$route.query.no, orderId: order.id } }">去开票</router-link>
 										</template>
-										<span class="invoicestatus" v-else-if="order.invoiceType == 1 && order.invoiceExpress != 0">已邮寄</span>
-										<span class="invoicestatus" v-else-if="order.invoiceType == 255">不需要发票</span>
-										<span class="invoicestatus" v-else-if="order.invoiceType == 3 && order.invoiceStatus == 1">已发送邮箱</span>
+										<span class="invoicestatus" v-else-if="order.InvoiceType == 1 && order.InvoiceExpress != 0">已邮寄</span>
+										<span class="invoicestatus" v-else-if="order.InvoiceType == 255">不需要发票</span>
+										<span class="invoicestatus" v-else-if="order.InvoiceType == 3 && order.InvoiceStatus == 1">已发送邮箱</span>
 										<span class="invoicestatus" v-else>未开具</span>
 									</template>
-									<span class="invoicestatus" v-else-if="order.paystatus == 5">已取消</span>
+									<span class="invoicestatus" v-else-if="order.PayStatus == 5">已取消</span>
 								</td>
 								<td>
 									<table class="inner-table" cellspacing="0" cellpadding="0">
-										<tr v-for="ticket in order.tickets" v-bind:key="ticket.type">
-											<td>{{ ticket.typeText }} x {{ ticket.amount }}</td>
+										<tr v-for="ticket in order.Tickets" v-bind:key="ticket.Type">
+											<td>{{ ticket.TypeText }} x {{ ticket.Amount }}</td>
 										</tr>
 									</table>
 								</td>
 								<td>
 									<table class="inner-table" cellspacing="0" cellpadding="0">
-										<tr v-for="ticket in order.tickets" v-bind:key="ticket.type">
+										<tr v-for="ticket in order.Tickets" v-bind:key="ticket.Type">
 											<td>
-												<template v-if="order.paystatus == 5">
+												<template v-if="order.PayStatus == 5">
 													<a class="allot-link nopay" to="javascript:void(0);">分配参会人</a>
 													<span class="nopay-tips">
 														?
 														<span class="nopaytip-text">该订单已取消，分配无效。</span>
 													</span>
 												</template>
-												<router-link class="allot-link" :to="{ path: '/orders/allocation', query: { no: $route.query.no, orderId: order.id, ticketType: ticket.type }}" v-else-if="ticket.allot == 0">分配参会人</router-link>
-												<span class="allot-status" v-else-if="ticket.allot == ticket.amount">已全部分配</span>
+												<router-link class="allot-link" :to="{ path: '/orders/allocation', query: { no: $route.query.no, orderId: order.Id, ticketType: ticket.Type }}" v-else-if="ticket.Allot == 0">分配参会人</router-link>
+												<span class="allot-status" v-else-if="ticket.Allot == ticket.Amount">已全部分配</span>
 												<template v-else>
-													<span class="allot-status allot-tips">有{{ ticket.amount - ticket.allot }}张未分配</span>
-                        							<router-link class="allot-link" :to="{ path: '/orders/allocation', query: { no: $route.query.no, orderId: order.id, ticketType: ticket.type }}">点击分配</router-link>
+													<span class="allot-status allot-tips">有{{ ticket.Amount - ticket.Allot }}张未分配</span>
+                        							<router-link class="allot-link" :to="{ path: '/orders/allocation', query: { no: $route.query.no, orderId: order.Id, ticketType: ticket.Type }}">点击分配</router-link>
 												</template>
 											</td>
 										</tr>
@@ -108,58 +108,61 @@
 <script>
 import MenuTitle from "@/components/MenuTitle.vue"
 export default {
-	mounted() {
-		// console.log(this)
-	},
 	data() {
 		return {
 			menuTitle: "我的订单",
 			chooseOrder: "all",
-			orderList: [
-				{
-					id: 28650,
-					date: "2018-08-22",
-					time: "10:18",
-					money: 13200.00,
-					payment: "支付宝",
-					contact: "习大大",
-					paystatus: 5,			// 2 3 已付款，0 已付款，未审核，1 未支付，5 已取消
-					invoiceType: 1,			// 0 未填写，255 不需要发票，1（纸质发票） 3（电子发票） 已填写
-					invoiceExpress: 0,		// 1 已邮寄
-					invoiceStatus: 10,		// 1 已发送至邮箱
-					tickets: [
-						{
-							type: 1,
-							typeText: "VIP票",
-							amount: 2,
-							allot: 2
-						},
-						{
-							type: 2,
-							typeText: "直通票",
-							amount: 2,
-							allot: 1
-						},
-						{
-							type: 3,
-							typeText: "普通票",
-							amount: 2,
-							allot: 1
-						},
-						{
-							type: 4,
-							typeText: "展览票",
-							amount: 2,
-							allot: 1
-						}
-					]
+			// orderList: [
+			// 	{
+			// 		id: 28650,
+			// 		date: "2018-08-22",
+			// 		time: "10:18",
+			// 		money: 13200.00,
+			// 		payment: "支付宝",
+			// 		contact: "习大大",
+			// 		paystatus: 5,			// 2 3 已付款，0 已付款，未审核，1 未支付，5 已取消
+			// 		invoiceType: 1,			// 0 未填写，255 不需要发票，1（纸质发票） 3（电子发票） 已填写
+			// 		invoiceExpress: 0,		// 1 已邮寄
+			// 		invoiceStatus: 10,		// 1 已发送至邮箱
+			// 		tickets: [
+			// 			{
+			// 				type: 1,
+			// 				typeText: "VIP票",
+			// 				amount: 2,
+			// 				allot: 2
+			// 			},
+			// 			{
+			// 				type: 2,
+			// 				typeText: "直通票",
+			// 				amount: 2,
+			// 				allot: 1
+			// 			},
+			// 			{
+			// 				type: 3,
+			// 				typeText: "普通票",
+			// 				amount: 2,
+			// 				allot: 1
+			// 			},
+			// 			{
+			// 				type: 4,
+			// 				typeText: "展览票",
+			// 				amount: 2,
+			// 				allot: 1
+			// 			}
+			// 		]
 
-				}
-			]
+			// 	}
+			// ]
 		}
 	},
 	components: {
 		MenuTitle
+	},
+	computed: {
+		orderList() {
+			this.no = this.$route.query.no
+			return this.$store.getters.getCurrentOrderList(this.no)
+		}
 	}
 }
 </script>

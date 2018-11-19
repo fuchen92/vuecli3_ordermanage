@@ -37,6 +37,9 @@ export default new Vuex.Store({
 	getters: {
 		getActivityByNo: (state) => (no) => {
 			return state.ActivityList.find(activity => activity.No == no)
+		},
+		getCurrentOrderList: (state, getters) => (no) => {
+			return getters.getActivityByNo(no).OrderList
 		}
 	}
 })

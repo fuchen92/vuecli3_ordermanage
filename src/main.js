@@ -16,7 +16,7 @@ router.beforeEach((to, from, next) => {
 	let user = JSON.parse(sessionStorage.getItem('user'))
 	if (!user && to.path !== '/login') {
 		if (to.path.substring(1)) {
-			next({ path: '/login', query: { redirect: to.path.substring(1) } })
+			next({ path: '/login', query: { redirect: to.path.substring(1), no: to.query.no } })
 		} else {
 			next({ path: '/login' })
 		}
