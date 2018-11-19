@@ -9,9 +9,9 @@
 			<div class="more-activity rt">
 				查看2018其他活动
 				<div class="other-activities">
-					<a class="otheractivity-link" href="/member/?no=64">2018 HMC</a>
-					<a class="otheractivity-link" href="/member/?no=65">2018 AMC</a>
-					<a class="otheractivity-link" href="/member/">2018 DMC</a>
+					<router-link class="otheractivity-link" to="/orders?no=63">2018 TDC</router-link>
+					<router-link class="otheractivity-link" to="/orders?no=56">2018 HMC</router-link>
+					<router-link class="otheractivity-link" to="/orders?no=46">2018 AMC</router-link>
 				</div>
 			</div>
 		</div>

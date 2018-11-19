@@ -4,6 +4,22 @@
 	</div>
 </template>
 
+<script>
+export default {
+	created() {
+		// vuex 页面刷新数据丢失解决问题参考https://juejin.im/post/5aa7d945518825558453ad8c
+		//在页面加载时读取localStorage里的状态信息
+		localStorage.getItem("activityMsg") && this.$store.replaceState(Object.assign(this.$store.state,JSON.parse(localStorage.getItem("activityMsg"))));
+
+		//在页面刷新时将vuex里的信息保存到localStorage里
+		window.addEventListener("beforeunload",()=>{
+			localStorage.setItem("activityMsg",JSON.stringify(this.$store.state))
+		})
+	}
+}
+</script>
+
+
 <style lang="scss">
 html, body, header, section, aside, footer, p, h1, h2, h3, h4, h5, h6, ul, ol, li {
     margin: 0;

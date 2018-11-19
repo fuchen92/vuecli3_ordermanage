@@ -11,12 +11,12 @@ export default new Vuex.Store({
 		ActivityList: []
 	},
 	mutations: {
-		setAccount(state, { account }) {
+		SETACCOUNT(state, { account }) {
 			// Vue.set(state.Account, "Account", account)
 			// console.log(state.Account)
 			state.Account = account
 		},
-		setActivity(state, { activityList }) {
+		SETACTIVITY(state, { activityList }) {
 			// Vue.set(state.ActivityList, "ActivityList", activityList)
 			// console.log(state.ActivityList)
 			state.ActivityList = activityList
@@ -25,12 +25,12 @@ export default new Vuex.Store({
 	actions: {
 		getUserAccount({ commit }, mobile) {
 			getUserAccount(mobile).then(res => {
-				commit("setAccount", { account: res.data.Account })
+				commit("SETACCOUNT", { account: res.data.Account })
 			})
 		},
 		getActivities({ commit }) {
 			fetchActivities().then(res => {
-				commit("setActivity", { activityList: res.data.ActivityList })
+				commit("SETACTIVITY", { activityList: res.data.ActivityList })
 			})
 		}
 	},

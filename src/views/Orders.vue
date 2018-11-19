@@ -13,12 +13,11 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
 import ActivityBar from "@/components/ActivityBar"
 export default {
 	data() {
 		return {
-
+			// no: this.$route.query.no
 		}
 	},
 	components: {
@@ -26,9 +25,17 @@ export default {
 	},
 	computed: {
 		currentActivity() {
-			return this.$store.getters.getActivityByNo(this.$route.query.no)
+			this.no = this.$route.query.no
+			return this.$store.getters.getActivityByNo(this.no)
 		}
-
+	},
+	watch: {
+		// 观察当前活动，如果没有订单就跳去首页
+		currentActivity: function(newActivity, oldActivity) {
+			if(!newActivity.HasOrder) {
+				this.$router.replace({ path: "/" })
+			}
+		}
 	}
 }
 </script>
