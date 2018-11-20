@@ -51,8 +51,14 @@ export default new Vuex.Store({
 			return state.ActivityList.find(activity => activity.No == no)
 		},
 		// 根据no获取当前活动的订单
-		getCurrentOrderList: (state) => (no) => {
-			return state.Orders[no]
+		getCurrentOrderList: (state) => (no, filterKeyWord) => {
+			if(filterKeyWord === "all") {
+				return state.Orders[no]
+			} else {
+				return state.Orders[no].filter(order => {
+					return order.PayStatus == 1 || order.PayStatus == 2
+				})
+			}
 		}
 	}
 })

@@ -41,26 +41,26 @@
 								<td>{{ order.Payment }}</td>
 								<td>{{ order.Contact }}</td>
 								<td>
-									<span class="paystatus" v-if="order.PayStatus == 2 || order.PayStatus == 3">已付款</span>
-									<template v-else-if="order.PayStatus == 0">
+									<span class="paystatus" v-if="order.PayStatus == 1">已付款</span>
+									<template v-else-if="order.PayStatus == 2">
 										<span class="paystatus">未审核</span>
-										<span class="cancel-order" @click="cancelOrder(order.id)">取消订单</span>
+										<span class="cancel-order" @click="cancelOrder(order.Id)">取消订单</span>
 									</template>
-									<template v-else-if="order.PayStatus == 1">
+									<template v-else-if="order.PayStatus == 0">
 										<span class="paystatus">未支付</span>
-										<span class="cancel-order" @click="cancelOrder(order.id)">取消订单</span>
+										<span class="cancel-order" @click="cancelOrder(order.Id)">取消订单</span>
 									</template>
 									<span class="paystatus" v-else-if="order.PayStatus == 5">已取消</span>
 								</td>
 								<td>
-									<template v-if="order.PayStatus == 0 || order.PayStatus == 1 || order.PayStatus == 2 || order.PayStatus == 3">
+									<template v-if="order.PayStatus == 0 || order.PayStatus == 1 || order.PayStatus == 2">
 										<template v-if="order.InvoiceType == 0">
 											<span class="invoicestatus">未填写</span>
-											<router-link :to="{ path: '/orders/invoice', query: { no: this.$route.query.no, orderId: order.id } }">去开票</router-link>
+											<router-link :to="{ path: '/orders/invoice', query: { no: this.$route.query.no, orderId: order.Id } }">去开票</router-link>
 										</template>
 										<span class="invoicestatus" v-else-if="order.InvoiceType == 1 && order.InvoiceExpress != 0">已邮寄</span>
 										<span class="invoicestatus" v-else-if="order.InvoiceType == 255">不需要发票</span>
-										<span class="invoicestatus" v-else-if="order.InvoiceType == 3 && order.InvoiceStatus == 1">已发送邮箱</span>
+										<span class="invoicestatus" v-else-if="order.InvoiceType == 2 && order.InvoiceStatus == 1">已发送邮箱</span>
 										<span class="invoicestatus" v-else>未开具</span>
 									</template>
 									<span class="invoicestatus" v-else-if="order.PayStatus == 5">已取消</span>
@@ -83,7 +83,7 @@
 														<span class="nopaytip-text">该订单已取消，分配无效。</span>
 													</span>
 												</template>
-												<router-link class="allot-link" :to="{ path: '/orders/allocation', query: { no: $route.query.no, orderId: order.Id, ticketType: ticket.Type }}" v-else-if="ticket.Allot == 0">分配参会人</router-link>
+												<router-link v-else-if="ticket.Allot == 0" class="allot-link" :to="{ path: '/orders/allocation', query: { no: $route.query.no, orderId: order.Id, ticketType: ticket.Type }}">分配参会人</router-link>
 												<span class="allot-status" v-else-if="ticket.Allot == ticket.Amount">已全部分配</span>
 												<template v-else>
 													<span class="allot-status allot-tips">有{{ ticket.Amount - ticket.Allot }}张未分配</span>
@@ -94,7 +94,7 @@
 									</table>
 								</td>
 							</tr>
-							<tr v-bind:key="order.id + 1">
+							<tr v-bind:key="'id' + order.Id">
 								<td class="white-divide" colspan="9"></td>
 							</tr>
 						</template>
@@ -161,8 +161,11 @@ export default {
 	computed: {
 		orderList() {
 			this.no = this.$route.query.no
-			return this.$store.getters.getCurrentOrderList(this.no)
+			return this.$store.getters.getCurrentOrderList(this.no, this.chooseOrder)
 		}
+	},
+	methods: {
+
 	}
 }
 </script>

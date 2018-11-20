@@ -49,7 +49,7 @@
                 "Money": "￥13200",
                 "Payment": "支付宝",
                 "Contact": "习大大",
-                "PayStatus": 2,
+                "PayStatus": 1,
                 "InvoiceType": 1,
                 "InvoiceExpress": 0,
                 "InvoiceStatus": 10,
@@ -65,6 +65,44 @@
                         "TypeText": "直通票",
                         "Amount": 2,
                         "Allot": 1
+                    },
+                    {
+                        "Type": 3,
+                        "TypeText": "普通票",
+                        "Amount": 2,
+                        "Allot": 1
+                    },
+                    {
+                        "Type": 4,
+                        "TypeText": "展览票",
+                        "Amount": 2,
+                        "Allot": 1
+                    }
+                ]
+            },
+            {
+                "Id": 28651,
+                "Date": "2018-08-23",
+                "Time": "11:20",
+                "Money": "￥15800",
+                "Payment": "银行转账",
+                "Contact": "周永康",
+                "PayStatus": 0,
+                "InvoiceType": 1,
+                "InvoiceExpress": 0,
+                "InvoiceStatus": 10,
+                "Tickets": [
+                    {
+                        "Type": 1,
+                        "TypeText": "VIP票",
+                        "Amount": 2,
+                        "Allot": 2
+                    },
+                    {
+                        "Type": 2,
+                        "TypeText": "直通票",
+                        "Amount": 2,
+                        "Allot": 2
                     },
                     {
                         "Type": 3,
