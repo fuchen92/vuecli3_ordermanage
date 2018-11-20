@@ -17,7 +17,7 @@
 						<router-link class="navitem-text" to="/account">我的账户</router-link>
 					</li>
 					<li class="nav-item lt">
-						<button class="loginout-btn">退出</button>
+						<button class="loginout-btn" @click="loginout">退出</button>
 					</li>
 				</ul>
 			</div>
@@ -32,7 +32,15 @@
 
 <script>
 export default {
-
+	methods: {
+		loginout() {
+			sessionStorage.clear();
+			localStorage.clear();
+			console.log(111)
+			console.log(this)
+			this.$router.replace("/login")
+		}
+	}
 }
 </script>
 

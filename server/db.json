@@ -17,47 +17,7 @@
             "Alias": "2018 TDC",
             "Time": "2018年9月19日 - 21日",
             "Site": "上海长风跨国采购中心",
-            "HasOrder": true,
-            "OrderList": [
-                {
-                    "Id": 28650,
-                    "Date": "2018-08-22",
-                    "Time": "10:18",
-                    "Money": "￥13200",
-                    "Payment": "支付宝",
-                    "Contact": "习大大",
-                    "PayStatus": 2,
-                    "InvoiceType": 1,
-                    "InvoiceExpress": 0,
-                    "InvoiceStatus": 10,
-                    "Tickets": [
-                        {
-                            "Type": 1,
-                            "TypeText": "VIP票",
-                            "Amount": 2,
-                            "Allot": 2
-                        },
-                        {
-                            "Type": 2,
-                            "TypeText": "直通票",
-                            "Amount": 2,
-                            "Allot": 1
-                        },
-                        {
-                            "Type": 3,
-                            "TypeText": "普通票",
-                            "Amount": 2,
-                            "Allot": 1
-                        },
-                        {
-                            "Type": 4,
-                            "TypeText": "展览票",
-                            "Amount": 2,
-                            "Allot": 1
-                        }
-                    ]
-                }
-            ]
+            "HasOrder": true
         },
         {
             "No": 56,
@@ -79,5 +39,49 @@
             "Site": "上海东锦江希尔顿逸林酒店",
             "HasOrder": false
         }
-    ]
+    ],
+    "Orders": {
+        "63": [
+            {
+                "Id": 28650,
+                "Date": "2018-08-22",
+                "Time": "10:18",
+                "Money": "￥13200",
+                "Payment": "支付宝",
+                "Contact": "习大大",
+                "PayStatus": 2,
+                "InvoiceType": 1,
+                "InvoiceExpress": 0,
+                "InvoiceStatus": 10,
+                "Tickets": [
+                    {
+                        "Type": 1,
+                        "TypeText": "VIP票",
+                        "Amount": 2,
+                        "Allot": 2
+                    },
+                    {
+                        "Type": 2,
+                        "TypeText": "直通票",
+                        "Amount": 2,
+                        "Allot": 1
+                    },
+                    {
+                        "Type": 3,
+                        "TypeText": "普通票",
+                        "Amount": 2,
+                        "Allot": 1
+                    },
+                    {
+                        "Type": 4,
+                        "TypeText": "展览票",
+                        "Amount": 2,
+                        "Allot": 1
+                    }
+                ]
+            }
+        ],
+        "56": [],
+        "46": []
+    }
 }

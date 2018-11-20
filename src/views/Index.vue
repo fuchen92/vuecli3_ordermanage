@@ -97,12 +97,14 @@ export default {
 		// 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
 		...mapActions({
 			initAccount: "getUserAccount",
-			initActivityList: "getActivities"
+			initActivityList: "getActivities",
+			initOrders: "getOrders"
 		})
 	},
 	beforeMount() {
 		this.initAccount(17520425633)
 		this.initActivityList()
+		this.initOrders()
 	}
 }
 </script>

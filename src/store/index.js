@@ -3,43 +3,56 @@ import Vuex from "vuex"
 
 Vue.use(Vuex)
 
-import { getUserAccount, fetchActivities } from "./api"
+import { getUserAccount, fetchActivities, getOrders } from "./api"
 
 export default new Vuex.Store({
 	state: {
 		Account: {},
-		ActivityList: []
+		ActivityList: [],
+		Orders: {}
 	},
 	mutations: {
-		SETACCOUNT(state, { account }) {
+		INITACCOUNT(state, { account }) {
 			// Vue.set(state.Account, "Account", account)
 			// console.log(state.Account)
 			state.Account = account
 		},
-		SETACTIVITY(state, { activityList }) {
+		INITACTIVITY(state, { activityList }) {
 			// Vue.set(state.ActivityList, "ActivityList", activityList)
 			// console.log(state.ActivityList)
 			state.ActivityList = activityList
+		},
+		INITORDERS(state, { orders }) {
+			state.Orders = orders
 		}
 	},
 	actions: {
 		getUserAccount({ commit }, mobile) {
 			getUserAccount(mobile).then(res => {
-				commit("SETACCOUNT", { account: res.data.Account })
+				commit("INITACCOUNT", { account: res.data.Account })
 			})
 		},
+		// 初始化所有活动
 		getActivities({ commit }) {
 			fetchActivities().then(res => {
-				commit("SETACTIVITY", { activityList: res.data.ActivityList })
+				commit("INITACTIVITY", { activityList: res.data.ActivityList })
+			})
+		},
+		// 初始化所有订单
+		getOrders({ commit }) {
+			getOrders().then(res => {
+				commit("INITORDERS", { orders: res.data.Orders })
 			})
 		}
 	},
 	getters: {
+		// 根据no获取当前活动
 		getActivityByNo: (state) => (no) => {
 			return state.ActivityList.find(activity => activity.No == no)
 		},
-		getCurrentOrderList: (state, getters) => (no) => {
-			return getters.getActivityByNo(no).OrderList
+		// 根据no获取当前活动的订单
+		getCurrentOrderList: (state) => (no) => {
+			return state.Orders[no]
 		}
 	}
 })

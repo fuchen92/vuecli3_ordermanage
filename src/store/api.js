@@ -7,3 +7,7 @@ export function getUserAccount(mobile) {
 export function fetchActivities() {
 	return axios.get(`http://localhost:8081/api/activity/`)
 }
+
+export function getOrders() {
+	return axios.get(`http://localhost:8081/api/activity/`)
+}

@@ -128,6 +128,11 @@ export default {
 				this.$router.push({ path: "/" })
 			}
 		}
+	},
+	beforeDestory() {
+		console.log(this.timer)
+		clearInterval(this.timer)
+		this.timer = null;
 	}
 }
 </script>
@@ -142,6 +147,7 @@ export default {
     transform: translate(-50%, -50%);
 }
 .logo {
+	width: 100%;
     height: 60px;
     margin-bottom: 65px;
     overflow: hidden;
