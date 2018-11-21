@@ -99,12 +99,6 @@
                         "Allot": 2
                     },
                     {
-                        "Type": 2,
-                        "TypeText": "直通票",
-                        "Amount": 2,
-                        "Allot": 2
-                    },
-                    {
                         "Type": 3,
                         "TypeText": "普通票",
                         "Amount": 2,
@@ -115,6 +109,32 @@
                         "TypeText": "展览票",
                         "Amount": 2,
                         "Allot": 1
+                    }
+                ]
+            },
+            {
+                "Id": 28652,
+                "Date": "2018-08-24",
+                "Time": "12:15",
+                "Money": "$1200",
+                "Payment": "银行转账",
+                "Contact": "贺国强",
+                "PayStatus": 1,
+                "InvoiceType": 2,
+                "InvoiceExpress": 0,
+                "InvoiceStatus": 1,
+                "Tickets": [
+                    {
+                        "Type": 3,
+                        "TypeText": "普通票",
+                        "Amount": 2,
+                        "Allot": 1
+                    },
+                    {
+                        "Type": 4,
+                        "TypeText": "展览票",
+                        "Amount": 2,
+                        "Allot": 2
                     }
                 ]
             }
