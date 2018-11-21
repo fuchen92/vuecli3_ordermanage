@@ -92,7 +92,7 @@ export default {
 			return this.$store.state.Account.Name
 		}
 	},
-	methods: {
+	/*methods: {
 		// 使用 mapActions 辅助函数将组件的 methods 映射为 store.dispatch 调用
 		// 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
 		...mapActions({
@@ -105,7 +105,7 @@ export default {
 		this.initAccount(17520425633)
 		this.initActivityList()
 		this.initOrders()
-	}
+	}*/
 }
 </script>
 

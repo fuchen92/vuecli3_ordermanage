@@ -24,6 +24,9 @@ export default new Vuex.Store({
 		},
 		INITORDERS(state, { orders }) {
 			state.Orders = orders
+		},
+		CANCELORDERBYID(state, { no, willCancelOrderId }) {
+			Vue.set(state.Orders[no].find(order => order.Id == willCancelOrderId), "PayStatus", 5)
 		}
 	},
 	actions: {
@@ -43,6 +46,10 @@ export default new Vuex.Store({
 			getOrders().then(res => {
 				commit("INITORDERS", { orders: res.data.Orders })
 			})
+		},
+		// 根据id取消订单
+		cancelOrderById({ commit }, { no, willCancelOrderId }) {
+			commit("CANCELORDERBYID", { no, willCancelOrderId })
 		}
 	},
 	getters: {
@@ -56,7 +63,7 @@ export default new Vuex.Store({
 				return state.Orders[no]
 			} else {
 				return state.Orders[no].filter(order => {
-					return order.PayStatus == 1 || order.PayStatus == 2
+					return order.PayStatus == 1
 				})
 			}
 		}

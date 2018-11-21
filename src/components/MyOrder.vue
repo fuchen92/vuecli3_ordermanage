@@ -28,144 +28,171 @@
 						<tr>
 							<td class="white-divide" colspan="9"></td>
 						</tr>
-						<template v-for="order in orderList">
-							<tr class="hasborder" v-bind:key="order.Id">
-								<td>{{ order.Id }}</td>
-								<td>
-									<span class="order-date">{{ order.Date }}</span>
-									<span class="order-time">{{ order.Time }}</span>
-								</td>
-								<td>
-									<strong>{{ order.Money }}</strong>
-								</td>
-								<td>{{ order.Payment }}</td>
-								<td>{{ order.Contact }}</td>
-								<td>
-									<span class="paystatus" v-if="order.PayStatus == 1">已付款</span>
-									<template v-else-if="order.PayStatus == 2">
-										<span class="paystatus">未审核</span>
-										<span class="cancel-order" @click="cancelOrder(order.Id)">取消订单</span>
-									</template>
-									<template v-else-if="order.PayStatus == 0">
-										<span class="paystatus">未支付</span>
-										<span class="cancel-order" @click="cancelOrder(order.Id)">取消订单</span>
-									</template>
-									<span class="paystatus" v-else-if="order.PayStatus == 5">已取消</span>
-								</td>
-								<td>
-									<template v-if="order.PayStatus == 0 || order.PayStatus == 1 || order.PayStatus == 2">
-										<template v-if="order.InvoiceType == 0">
-											<span class="invoicestatus">未填写</span>
-											<router-link :to="{ path: '/orders/invoice', query: { no: this.$route.query.no, orderId: order.Id } }">去开票</router-link>
+						<template v-if="orderList.length != 0">
+							<template v-for="order in orderList">
+								<tr class="hasborder" v-bind:key="order.Id">
+									<td>{{ order.Id }}</td>
+									<td>
+										<span class="order-date">{{ order.Date }}</span>
+										<span class="order-time">{{ order.Time }}</span>
+									</td>
+									<td>
+										<strong>{{ order.Money }}</strong>
+									</td>
+									<td>{{ order.Payment }}</td>
+									<td>{{ order.Contact }}</td>
+									<td>
+										<span class="paystatus" v-if="order.PayStatus == 1">已付款</span>
+										<template v-else-if="order.PayStatus == 2">
+											<span class="paystatus">未审核</span>
+											<span class="cancel-order" @click="showCancelBox(order.Id)">取消订单</span>
 										</template>
-										<span class="invoicestatus" v-else-if="order.InvoiceType == 1 && order.InvoiceExpress != 0">已邮寄</span>
-										<span class="invoicestatus" v-else-if="order.InvoiceType == 255">不需要发票</span>
-										<span class="invoicestatus" v-else-if="order.InvoiceType == 2 && order.InvoiceStatus == 1">已发送邮箱</span>
-										<span class="invoicestatus" v-else>未开具</span>
-									</template>
-									<span class="invoicestatus" v-else-if="order.PayStatus == 5">已取消</span>
-								</td>
-								<td>
-									<table class="inner-table" cellspacing="0" cellpadding="0">
-										<tr v-for="ticket in order.Tickets" v-bind:key="ticket.Type">
-											<td>{{ ticket.TypeText }} x {{ ticket.Amount }}</td>
-										</tr>
-									</table>
-								</td>
-								<td>
-									<table class="inner-table" cellspacing="0" cellpadding="0">
-										<tr v-for="ticket in order.Tickets" v-bind:key="ticket.Type">
-											<td>
-												<template v-if="order.PayStatus == 5">
-													<a class="allot-link nopay" to="javascript:void(0);">分配参会人</a>
-													<span class="nopay-tips">
-														?
-														<span class="nopaytip-text">该订单已取消，分配无效。</span>
-													</span>
-												</template>
-												<router-link v-else-if="ticket.Allot == 0" class="allot-link" :to="{ path: '/orders/allocation', query: { no: $route.query.no, orderId: order.Id, ticketType: ticket.Type }}">分配参会人</router-link>
-												<span class="allot-status" v-else-if="ticket.Allot == ticket.Amount">已全部分配</span>
-												<template v-else>
-													<span class="allot-status allot-tips">有{{ ticket.Amount - ticket.Allot }}张未分配</span>
-                        							<router-link class="allot-link" :to="{ path: '/orders/allocation', query: { no: $route.query.no, orderId: order.Id, ticketType: ticket.Type }}">点击分配</router-link>
-												</template>
-											</td>
-										</tr>
-									</table>
+										<template v-else-if="order.PayStatus == 0">
+											<span class="paystatus">未支付</span>
+											<span class="cancel-order" @click="showCancelBox(order.Id)">取消订单</span>
+										</template>
+										<span class="paystatus" v-else-if="order.PayStatus == 5">已取消</span>
+									</td>
+									<td>
+										<template v-if="order.PayStatus == 0 || order.PayStatus == 1 || order.PayStatus == 2">
+											<template v-if="order.InvoiceType == 0">
+												<span class="invoicestatus">未填写</span>
+												<router-link :to="{ path: '/orders/invoice', query: { no: this.$route.query.no, orderId: order.Id } }">去开票</router-link>
+											</template>
+											<span class="invoicestatus" v-else-if="order.InvoiceType == 1 && order.InvoiceExpress != 0">已邮寄</span>
+											<span class="invoicestatus" v-else-if="order.InvoiceType == 255">不需要发票</span>
+											<span class="invoicestatus" v-else-if="order.InvoiceType == 2 && order.InvoiceStatus == 1">已发送邮箱</span>
+											<span class="invoicestatus" v-else>未开具</span>
+										</template>
+										<span class="invoicestatus" v-else-if="order.PayStatus == 5">已取消</span>
+									</td>
+									<td>
+										<table class="inner-table" cellspacing="0" cellpadding="0">
+											<tr v-for="ticket in order.Tickets" v-bind:key="ticket.Type">
+												<td>{{ ticket.TypeText }} x {{ ticket.Amount }}</td>
+											</tr>
+										</table>
+									</td>
+									<td>
+										<table class="inner-table" cellspacing="0" cellpadding="0">
+											<tr v-for="ticket in order.Tickets" v-bind:key="ticket.Type">
+												<td>
+													<template v-if="order.PayStatus == 5 || order.PayStatus == 0">
+														<a class="allot-link nopay" to="javascript:void(0);">分配参会人</a>
+														<span class="nopay-tips">
+															?
+															<span class="nopaytip-text">该订单{{ order.PayStatus == 5 ? "已取消" : "未支付" }}，分配无效。</span>
+														</span>
+													</template>
+													<router-link v-else-if="ticket.Allot == 0" class="allot-link" :to="{ path: '/orders/allocation', query: { no: $route.query.no, orderId: order.Id, ticketType: ticket.Type }}">分配参会人</router-link>
+													<span class="allot-status" v-else-if="ticket.Allot == ticket.Amount">已全部分配</span>
+													<template v-else>
+														<span class="allot-status allot-tips">有{{ ticket.Amount - ticket.Allot }}张未分配</span>
+														<router-link class="allot-link" :to="{ path: '/orders/allocation', query: { no: $route.query.no, orderId: order.Id, ticketType: ticket.Type }}">点击分配</router-link>
+													</template>
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr v-bind:key="'id' + order.Id">
+									<td class="white-divide" colspan="9"></td>
+								</tr>
+							</template>
+						</template>
+						<template v-else-if="orderList.length == 0 && chooseOrder == 'all'">
+							<tr>
+								<td class="no-order" colspan="9">
+									<p class="noorder-text">暂无订单~</p>
+									<a class="buyticket-link" :href="currentActivity.Link + 'register'" target="_blank">快去购票吧</a>
 								</td>
 							</tr>
-							<tr v-bind:key="'id' + order.Id">
+							<tr>
+								<td class="white-divide" colspan="9"></td>
+							</tr>
+						</template>
+						<template v-else>
+							<tr>
+								<td class="no-order" colspan="9">
+									<p class="nopayorder-text">暂无已付款订单~</p>
+									<button class="checkAllOrder" @click="checkAllOrder">查看全部订单</button>
+								</td>
+							</tr>
+							<tr>
 								<td class="white-divide" colspan="9"></td>
 							</tr>
 						</template>
 					</tbody>
 				</table>
+				<div class="pay-tips">
+					<p class="paytips-text lt">注：如选择了银行转账方式，请注意查收您的邮箱，我们会发送【付款提醒邮件】至您邮箱。</p>
+					<a class="buy-again rt" :href="currentActivity.Link +  'register'" target="_blank">继续购票</a>
+				</div>
+			</div>
+		</div>
+		<div class="fixedDialog cancelBox" v-show="isShow">
+			<div class="fixedDialog-bg"></div>
+			<div class="fixedDialog-wrapper">
+				<div id="closeFixedDialog" class="closeFixedDialog" @click="closeDialog">×</div>
+				<h3 class="fixedDialog-title">取消订单</h3>
+				<p class="fixedDialog-desc">您确定要取消订单吗？</p>
+				<div class="fixedBtns">
+					<button id="cancelBtn" type="button" class="cancelBtn" @click="closeDialog">取消</button>
+					<button id="confirmBtn" type="button" class="confirmBtn" @click="confirmCancelOrder">确定</button>
+				</div>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+// import { mapActions } from "vuex"
 import MenuTitle from "@/components/MenuTitle.vue"
 export default {
 	data() {
 		return {
 			menuTitle: "我的订单",
 			chooseOrder: "all",
-			// orderList: [
-			// 	{
-			// 		id: 28650,
-			// 		date: "2018-08-22",
-			// 		time: "10:18",
-			// 		money: 13200.00,
-			// 		payment: "支付宝",
-			// 		contact: "习大大",
-			// 		paystatus: 5,			// 2 3 已付款，0 已付款，未审核，1 未支付，5 已取消
-			// 		invoiceType: 1,			// 0 未填写，255 不需要发票，1（纸质发票） 3（电子发票） 已填写
-			// 		invoiceExpress: 0,		// 1 已邮寄
-			// 		invoiceStatus: 10,		// 1 已发送至邮箱
-			// 		tickets: [
-			// 			{
-			// 				type: 1,
-			// 				typeText: "VIP票",
-			// 				amount: 2,
-			// 				allot: 2
-			// 			},
-			// 			{
-			// 				type: 2,
-			// 				typeText: "直通票",
-			// 				amount: 2,
-			// 				allot: 1
-			// 			},
-			// 			{
-			// 				type: 3,
-			// 				typeText: "普通票",
-			// 				amount: 2,
-			// 				allot: 1
-			// 			},
-			// 			{
-			// 				type: 4,
-			// 				typeText: "展览票",
-			// 				amount: 2,
-			// 				allot: 1
-			// 			}
-			// 		]
-
-			// 	}
-			// ]
+			isShow: false
 		}
 	},
 	components: {
 		MenuTitle
 	},
 	computed: {
+		currentActivity() {
+			this.no = this.$route.query.no
+			return this.$store.getters.getActivityByNo(this.no)
+		},
 		orderList() {
 			this.no = this.$route.query.no
 			return this.$store.getters.getCurrentOrderList(this.no, this.chooseOrder)
 		}
 	},
 	methods: {
-
+		showCancelBox(id) {
+			this.isShow = true;
+			this.willCancelOrderId = id;
+		},
+		closeDialog() {
+			this.isShow = false;
+			this.willCancelOrderId = 0;
+		},
+		// 在组件中使用 this.$store.dispatch('xxx') 分发 action
+		// 或者使用 mapActions 辅助函数将组件的 methods 映射为 store.dispatch 调用
+		/*...mapActions({
+			add: 'increment' // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
+		})*/
+		// ...mapActions({
+		// 	confirmCancelOrder: "cancelOrderById"
+		// })
+		confirmCancelOrder() {
+			this.$store.dispatch("cancelOrderById", { no: this.no, willCancelOrderId: this.willCancelOrderId })
+			this.isShow = false;
+		},
+		checkAllOrder() {
+			this.chooseOrder = "all";
+		}
 	}
 }
 </script>
@@ -205,6 +232,7 @@ export default {
 .order-list {
     // display: block;
 	background-color: #fff;
+	padding-bottom: 25px;
 	> .container {
 		width: 97%;
 		margin-top: -50px;
@@ -310,6 +338,126 @@ td {
 }
 .nopay-tips:hover .nopaytip-text {
     display: block;
+}
+.pay-tips {
+    overflow: hidden;
+    height: 40px;
+    margin: 25px 0;
+}
+.paytips-text {
+    width: 80%;
+    font-size: 15px;
+    line-height: 40px;
+    color: #777777;
+}
+.nopay-order {
+    height: 120px;
+}
+.nopayorder-text, .noorder-text {
+    font-size: 15px;
+    color: #858585;
+    margin-bottom: 10px;
+}
+.checkAllOrder{
+    font-size: 15px;
+    padding: 5px 10px;
+    background-color: #1683ef;
+    color: #fff;
+    height: 30px;
+    line-height: 20px;
+	border-radius: 2px;
+	cursor: pointer;
+}
+.buyticket-link {
+	padding: 5px 15px;
+	font-size: 15px;
+	line-height: 20px;
+	background-color: #1683ef;
+	color: #fff;
+	border-radius: 2px;
+}
+@media screen and (max-width: 1400px) {
+	.paytips-text {
+		line-height: 20px;
+	}
+}
+.buy-again {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 40px;
+    font-size: 15px;
+    background-color: #1683ef;
+    color: #fff;
+    border-radius: 2px;
+}
+.fixedDialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    // display: none;
+}
+.fixedDialog-bg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.fixedDialog-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 260px;
+    height: 155px;
+    background-color: #fff;
+    box-shadow: 1px 1px 50px rgba(0,0,0,.3);
+}
+.closeFixedDialog {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+    text-align: center;
+    line-height: 20px;
+    cursor: pointer;
+}
+.fixedDialog-title {
+    box-sizing: border-box;
+    height: 45px;
+    background-color: #F8F8F8;
+    border-bottom: 1px solid #eeeeee;
+    padding: 0 20px;
+    font-size: 14px;
+    color: #333333;
+    line-height: 44px;
+    font-weight: normal;
+}
+.fixedDialog-desc {
+    box-sizing: border-box;
+	height: 60px;
+	font-size: 14px;
+    padding: 20px;
+}
+.fixedBtns {
+    box-sizing: border-box;
+    height: 50px;
+    padding: 10px 20px;
+    text-align: right;
+}
+.cancelBtn, .confirmBtn {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    padding: 0 15px;
+    background-color: #1683ef;
+    color: #fff;
+    cursor: pointer;
+}
+.cancelBtn {
+	margin-right: 5px;
 }
 </style>
 

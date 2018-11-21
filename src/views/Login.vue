@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex"
 export default {
 	name: "login",
 	data() {
@@ -127,12 +128,21 @@ export default {
 			} else {
 				this.$router.push({ path: "/" })
 			}
-		}
+		},
+		// 使用 mapActions 辅助函数将组件的 methods 映射为 store.dispatch 调用
+		// 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
+		...mapActions({
+			initAccount: "getUserAccount",
+			initActivityList: "getActivities",
+			initOrders: "getOrders"
+		})
 	},
-	beforeDestory() {
-		console.log(this.timer)
+	beforeDestroy() {
 		clearInterval(this.timer)
 		this.timer = null;
+		this.initAccount(this.mobile)
+		this.initActivityList()
+		this.initOrders()
 	}
 }
 </script>

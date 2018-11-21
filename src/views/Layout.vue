@@ -36,8 +36,6 @@ export default {
 		loginout() {
 			sessionStorage.clear();
 			localStorage.clear();
-			console.log(111)
-			console.log(this)
 			this.$router.replace("/login")
 		}
 	}
