@@ -25,9 +25,12 @@ html, body, header, section, aside, footer, p, h1, h2, h3, h4, h5, h6, ul, ol, l
     margin: 0;
     padding: 0;
 }
-body {
+html, body {
+	min-width: 1200px;
+	min-height: 100%;
 	font-family: "微软雅黑", Arial, "Microsoft Yahei";
 	background-color: #f8f8f8;
+	font-size: 14px;
 	color: #333333;
 }
 a {
@@ -58,6 +61,9 @@ select {
     background-position: right 10px center;
     color: #181818;
 }
+input:disabled, button:disabled {
+    cursor: not-allowed;
+}
 button:disabled {
     background-color: #EDEDEE;
     cursor: not-allowed;
@@ -81,6 +87,18 @@ button:disabled {
     display: block;
     content: "";
     clear: both;
+}
+.formGroup {
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+.formInput {
+    width: 100%;
+    height: 40px;
+    font-size: 15px;
+    padding: 0 10px;
+    border: 1px solid #D3D3D3;
+	background-color: #fff;
 }
 // #app {
 //   font-family: 'Avenir', Helvetica, Arial, sans-serif;

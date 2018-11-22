@@ -1,7 +1,7 @@
 <template>
-	<div class="menu-title-box">
+	<div class="menuTitleBox">
 		<div class="container">
-			<h3 class="menu-title">{{ menuTitle }}</h3>
+			<h3 class="menuTitle">{{ menuTitle }}</h3>
 		</div>
 	</div>
 </template>
@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style lang="scss">
-.menu-title-box {
+.menuTitleBox {
 	height: 50px;
     line-height: 50px;
     background-color: #fff;
@@ -27,7 +27,7 @@ export default {
 		width: 97%;
 	}
 }
-.menu-title {
+.menuTitle {
 	font-size: 16px;
 }
 </style>

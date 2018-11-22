@@ -1,39 +1,39 @@
 <template>
 	<div class="indexPage">
-		<Welcome v-bind:userName="userName"></Welcome>
-		<div class="classify-infobox">
+		<Welcome v-bind:UserName="UserName"></Welcome>
+		<div class="classify">
             <div class="container">
-                <p class="classify-activity-text lt">活动信息</p>
-                <p class="classify-ticket-text rt">订单信息</p>
+                <p class="classifyActivity lt">活动信息</p>
+                <p class="classifyTicket rt">订单信息</p>
             </div>
         </div>
-		<ul class="activity-lists">
-            <li class="activity-item" v-for="(activity, index) in activityList" v-bind:key="index">
+		<ul class="activityList">
+            <li v-for="(activity, index) in ActivityList" v-bind:key="index" class="activityItem">
                 <div class="container">
-                    <div class="activity-left lt">
-                        <div class="activity-logo lt">
+                    <div class="activityLeft lt">
+                        <div class="activityLogo lt">
                         	<a :href="activity.Link">
-                            	<img class="activity-logo-img" :src="'http://localhost:8081/src/assets/' + activity.Logo">
+                            	<img class="activityLogoImg" :src="'http://localhost:8081/src/assets/' + activity.Logo">
                         	</a>
                         </div>
-                        <div class="activity-info lt">
-                            <h3 class="activity-item-title">
+                        <div class="activityInfo lt">
+                            <h3 class="activityItemTitle">
                             	<a :href="activity.Link" target="_blank">
                             		{{ activity.Name }}
                             	</a>
                             </h3>
-                            <p class="activity-detail">
-                                <span class="activity-time">{{ activity.Time }}</span>
-                                <span class="activity-site">{{ activity.Site }}</span>
+                            <p class="activityDetail">
+                                <span class="activityTime">{{ activity.Time }}</span>
+                                <span class="activitySite">{{ activity.Site }}</span>
                             </p>
                         </div>
                     </div>
-					<div class="activity-right rt">
-						<div class="ticket-status" :class="{ 'hasbuyed': activity.HasOrder }">
-							<router-link class="ticket-status-text lt" :to="{ path: 'orders', query: { no: activity.No } }" v-if="activity.HasOrder">查看您的订单信息</router-link>
+					<div class="activityRight rt">
+						<div class="ticketStatus" :class="{ 'hasbuyed': activity.HasOrder }">
+							<router-link class="ticketStatusText lt" :to="{ path: 'orders', query: { no: activity.No } }" v-if="activity.HasOrder">查看您的订单信息</router-link>
 							<template v-else>
-								<p class="ticket-status-text lt">您暂无订单信息</p>
-								<a class="buy-ticket lt" :href="activity.Link + 'register'" target="_blank">立即购票</a>
+								<p class="ticketStatusText lt">您暂无订单信息</p>
+								<a class="buyTicket lt" :href="activity.Link + 'register'" target="_blank">立即购票</a>
 							</template>
 						</div>
 					</div>
@@ -49,46 +49,17 @@ import Welcome from "@/components/Welcome.vue"
 export default {
 	data() {
 		return {
-			// userName: "",
-			// activityList: [
-			// 	{
-			// 		no: 63,
-			// 		link: "/tdc2018/",
-			// 		logo: require("@/assets/activity-1.png"),
-			// 		title: "2018环球旅讯峰会&中国数字旅游展",
-			// 		time: "2018年9月19日 - 21日",
-			// 		site: "上海长风跨国采购中心",
-			// 		hasOrder: true
-			// 	},
-			// 	{
-			// 		no: 56,
-			// 		link: "/hmc2018/",
-			// 		logo: require("@/assets/activity-3.png"),
-			// 		title: "2018中国住宿业峰会",
-			// 		time: "2018年6月27日 - 28日",
-			// 		site: "杭州华盛达雷迪森广场酒店",
-			// 		hasOrder: false
-			// 	},
-			// 	{
-			// 		no: 46,
-			// 		link: "/amc2018/",
-			// 		logo: require("@/assets/activity-4.png"),
-			// 		title: "2018中国航空营销峰会",
-			// 		time: "2018年7月25日 - 26日",
-			// 		site: "上海东锦江希尔顿逸林酒店",
-			// 		hasOrder: false
-			// 	}
-			// ]
+
 		}
 	},
 	components: {
 		Welcome
 	},
 	computed: {
-		activityList() {
+		ActivityList() {
 			return this.$store.state.ActivityList
 		},
-		userName() {
+		UserName() {
 			return this.$store.state.Account.Name
 		}
 	},
@@ -110,7 +81,7 @@ export default {
 </script>
 
 <style lang="scss">
-.classify-infobox {
+.classify {
     height: 45px;
     line-height: 45px;
     font-size: 15px;
@@ -119,16 +90,16 @@ export default {
 		width: 95%;
 	}
 }
-.classify-activity-text, .activity-left {
+.classifyActivity, .activityLeft {
     width: 65%;
 }
-.classify-ticket-text, .activity-right {
+.classifyTicket, .activityRight {
     width: 35%;
 }
-.activity-lists {
+.activityList {
     margin-top: 15px;
 }
-.activity-item {
+.activityItem {
     height: 140px;
     background-color: #fff;
 	margin-bottom: 15px;
@@ -136,35 +107,35 @@ export default {
 		width: 95%;
 	}
 }
-.activity-left, .activity-right {
+.activityLeft, .activityRight {
     height: 100%;
     overflow: hidden;
 }
-.activity-logo {
+.activityLogo {
     box-sizing: border-box;
     width: 95px;
     height: 95px;
     margin: 25px 20px 0 0;
     border-radius: 50%;
 }
-.activity-logo-img {
+.activityLogoImg {
     width: 100%;
 }
-.activity-info {
+.activityInfo {
     width: calc(100% - 210px);
     width: -webkit-calc(100% - 210px);
     width: -moz-calc(100% - 210px);
     height: 90px;
     margin-top: 40px;
 }
-.activity-item-title {
+.activityItemTitle {
     font-size: 16px;
 	margin-bottom: 15px;
 	> a {
 		color: #333333;
 	}
 }
-.activity-time, .activity-site {
+.activityTime, .activitySite {
     display: inline-block;
     font-size: 14px;
     line-height: 25px;
@@ -172,27 +143,27 @@ export default {
     background-repeat: no-repeat;
     background-position: left center;
 }
-.activity-time {
+.activityTime {
     margin-right: 15px;
     background-image: url(../assets/calendar.png);
 }
-.activity-site {
+.activitySite {
     background-image: url(../assets/site.png);
     background-position: left 5px center;
 }
-.ticket-status {
+.ticketStatus {
     width: 100%;
     height: 90px;
     margin-top: 40px;
     overflow: hidden;
 }
-.ticket-status-text {
+.ticketStatusText {
     font-size: 14px;
     line-height: 20px;
     color: #858585;
     margin: 7px 40px 0 0;
 }
-.buy-ticket {
+.buyTicket {
     box-sizing: border-box;
     width: 130px;
     height: 35px;
@@ -202,13 +173,13 @@ export default {
     color: #fff;
     background-color: #1683ef;
 }
-.hasbuyed .ticket-status-text {
+.hasbuyed .ticketStatusText {
     position: relative;
     color: #1683ef;
     cursor: pointer;
     font-size: 14px;
 }
-.hasbuyed .ticket-status-text::after {
+.hasbuyed .ticketStatusText::after {
     position: absolute;
     top: 5px;
     content: "";

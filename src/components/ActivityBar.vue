@@ -1,17 +1,17 @@
 <template>
-	<div class="activity-title-box">
+	<div class="activityTitleBox">
 		<div class="container">
-			<h1 class="activity-title lt">
-				<router-link :to="'/orders?no=' + this.$route.query.no">{{ currentActivity.Name }}</router-link>
+			<h1 class="activityTitle lt">
+				<router-link :to="'/orders?no=' + this.$route.query.no">{{ CurrentActivity.Name }}</router-link>
 			</h1>
-			<span class="activity-time">{{ currentActivity.Time }}</span>
-			<span class="activity-site">{{ currentActivity.Site }}</span>
-			<div class="more-activity rt">
+			<span class="activityTime">{{ CurrentActivity.Time }}</span>
+			<span class="activitySite">{{ CurrentActivity.Site }}</span>
+			<div class="moreActivity rt">
 				查看2018其他活动
-				<div class="other-activities">
-					<router-link class="otheractivity-link" to="/orders?no=63">2018 TDC</router-link>
-					<router-link class="otheractivity-link" to="/orders?no=56">2018 HMC</router-link>
-					<router-link class="otheractivity-link" to="/orders?no=46">2018 AMC</router-link>
+				<div class="otherActivities">
+					<router-link class="otheractivityLink" to="/orders?no=63">2018 TDC</router-link>
+					<router-link class="otheractivityLink" to="/orders?no=56">2018 HMC</router-link>
+					<router-link class="otheractivityLink" to="/orders?no=46">2018 AMC</router-link>
 				</div>
 			</div>
 		</div>
@@ -21,7 +21,7 @@
 <script>
 export default {
 	props: {
-		currentActivity: {
+		CurrentActivity: {
 			type: Object,
 			require: true
 		}
@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.activity-title-box {
+.activityTitleBox {
     box-sizing: border-box;
     height: 80px;
     padding: 25px 0;
@@ -41,7 +41,7 @@ export default {
 		overflow: visible;
 	}
 }
-.activity-title {
+.activityTitle {
     font-size: 16px;
     line-height: 30px;
     margin-right: 30px;
@@ -49,11 +49,11 @@ export default {
 		color: #333;
 	}
 }
-.activity-time, .activity-site {
+.activityTime, .activitySite {
 	font-size: 16px;
 	line-height: 30px;
 }
-.more-activity {
+.moreActivity {
     position: relative;
     box-sizing: border-box;
     padding: 0 10px 0 35px;
@@ -65,7 +65,7 @@ export default {
     border-radius: 5px;
     background: #1683ef url(../assets/activity.png) left 8px center no-repeat;
 }
-.other-activities {
+.otherActivities {
     position: absolute;
     top: 30px;
     left: 0;
@@ -76,7 +76,7 @@ export default {
     border-top: 0;
     display: none;
 }
-.otheractivity-link {
+.otheractivityLink {
     display: block;
     padding: 0 15px;
     color: #333333;
@@ -84,11 +84,11 @@ export default {
 		color: #1683EF;
 	}
 }
-.more-activity:hover {
+.moreActivity:hover {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
-.more-activity:hover .other-activities {
+.moreActivity:hover .otherActivities {
     display: block;
 }
 </style>

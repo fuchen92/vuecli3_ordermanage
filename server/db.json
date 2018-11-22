@@ -141,5 +141,28 @@
         ],
         "56": [],
         "46": []
+    },
+    "AllotList": {
+        "63": [
+            {
+                "Id": 28650,
+                "AllotId": 1,
+                "NameCn": "习大大",
+                "NameEn": "xidada",
+                "Sex": 1,
+                "CompanyCn": "中华人民共和国",
+                "CompanyEn": "China",
+                "JobCn": "国家主席",
+                "JobEn": "zhuxi",
+                "TicketType": 1,
+                "PayStatus": 1,
+                "Mobile": 13988887777,
+                "Tel": "010-1111",
+                "Email": "china@china.com",
+                "AuditStatus": 0,
+                "Industry": 77,
+                "Function": 265
+            }
+        ]
     }
 }

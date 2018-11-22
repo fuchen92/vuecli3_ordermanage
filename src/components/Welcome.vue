@@ -1,13 +1,13 @@
 <template>
 	<div class="welcome">
-		<h1 class="welcome-text lt">{{ userName }}，您好！</h1>
+		<h1 class="welcomeText lt">{{ UserName }}，您好！</h1>
 	</div>
 </template>
 
 <script>
 export default {
 	props: {
-		userName: {
+		UserName: {
 			type: String,
 			default: "习大大"
 		}
@@ -22,7 +22,7 @@ export default {
     padding: 15px 0;
     overflow: hidden;
 }
-.welcome-text {
+.welcomeText {
     font-size: 15px;
     line-height: 30px;
     font-weight: normal;

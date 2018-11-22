@@ -2,22 +2,22 @@
 	<div class="layout">
 		<nav>
 			<div class="container">
-				<div class="logo lt">
+				<div class="navLogo lt">
 					<router-link to="/">
-						<img class="logo-img" src="@/assets/logo1.png">
+						<img class="logoImg" src="@/assets/logo1.png">
 					</router-link>
 				</div>
-				<b class="logo-divide lt"></b>
-				<p class="logo-desc lt">报名信息管理</p>
-				<ul class="nav-list rt">
-					<li class="nav-item lt">
-						<div class="navitem-caret">
+				<b class="logoDivide lt"></b>
+				<p class="logoDesc lt">报名信息管理</p>
+				<ul class="navList rt">
+					<li class="navItem lt">
+						<div class="navItemCaret">
 							<img src="@/assets/account.png">
 						</div>
-						<router-link class="navitem-text" to="/account">我的账户</router-link>
+						<router-link class="navItemText" to="/account">我的账户</router-link>
 					</li>
-					<li class="nav-item lt">
-						<button class="loginout-btn" @click="loginout">退出</button>
+					<li class="navItem lt">
+						<button @click="loginOut" class="loginOutBtn">退出</button>
 					</li>
 				</ul>
 			</div>
@@ -33,7 +33,7 @@
 <script>
 export default {
 	methods: {
-		loginout() {
+		loginOut() {
 			sessionStorage.clear();
 			localStorage.clear();
 			this.$router.replace("/login")
@@ -51,49 +51,49 @@ nav {
 		width: 80%;
 	}
 }
-.logo {
+.navLogo {
     width: 105px;
     height: 55px;
     overflow: hidden;
     margin-top: 23px;
 }
-.logo-img {
+.logoImg {
     width: 100%;
 }
-.logo-divide {
+.logoDivide {
     display: block;
     height: 25px;
     border-left: 1px solid #CDCDCD;
     margin: 38px 15px 0 15px;
 }
-.logo-desc {
+.logoDesc {
     font-weight: bold;
     font-size: 17px;
     line-height: 20px;
     margin-top: 35px;
 }
-.nav-list {
+.navList {
     width: auto;
     height: 55px;
     line-height: 55px;
     overflow: hidden;
     margin-top: 23px;
 }
-.nav-item:not(:last-child) {
+.navItem:not(:last-child) {
     margin-right: 20px;
 }
-.navitem-caret, .navitem-text {
+.navItemCaret, .navItemText {
     display: inline-block;
     vertical-align: middle;
 }
-.navitem-caret {
+.navItemCaret {
     margin-right: 5px;
 }
-.navitem-text {
+.navItemText {
     color: #333333;
     font-size: 16px;
 }
-.loginout-btn {
+.loginOutBtn {
     display: inline-block;
     width: 60px;
 	color: #333333;

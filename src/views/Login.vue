@@ -1,31 +1,31 @@
 <template>
 	<div class="loginBox">
-		<div class="logo">
+		<div class="loginLogo">
 			<img src="@/assets/logo1.png">
 			<b class="divide"></b>
-			<h3 class="logo-title">报名信息管理</h3>
+			<h3 class="logoTitle">报名信息管理</h3>
     	</div>
-		<p class="mobile-tips">为保证优质体验，请在电脑端打开此链接</p>
-		<p class="mobile-link">http://www.baidu.com</p>
+		<p class="mobileTips">为保证优质体验，请在电脑端打开此链接</p>
+		<p class="mobileLink">http://www.baidu.com</p>
 		<div class="loginForm">
-			<div class="form-group clear">
-				<input id="mobile" class="form-input" type="text" placeholder="请输入报名时填写的联系人手机号" ref="mobile" v-model.trim="mobile">
+			<div class="formGroup clear">
+				<input v-model.trim="mobile" ref="mobile" id="mobile" class="formInput" placeholder="请输入报名时填写的联系人手机号">
 			</div>
-			<div class="form-group clear">
-                <input id="valicode" class="form-input lt" type="text" maxlength="6" placeholder="验证码" ref="valicode" v-model.trim="valicode">
-                <button id="getValicode" class="getValicode rt" @click="getValicode" :disabled="isGettedCode">{{ getValicodeBtnText }}</button>
+			<div class="formGroup clear">
+                <input v-model.trim="valicode" ref="valicode" id="valicode" class="formInput lt" maxlength="6" placeholder="验证码">
+                <button @click="getValicode" v-bind:disabled="isGettedCode" id="getValicode" class="getValicode rt">{{ getValicodeBtnText }}</button>
             </div>
-			<div class="form-group clear">
-                <label for="autologin" class="autologin">
-                    <input id="autologin" class="form-checkbox" type="checkbox" v-model="autoLogin">
+			<div class="formGroup clear">
+                <label for="autoLogin" class="autoLogin">
+                    <input v-model="autoLogin" id="autoLogin" class="formCheckbox" type="checkbox">
                     <i></i>
                     自动登录
                 </label>
-                <p id="tips" class="tips" v-show="isError">{{ errorTip }}</p>
+                <p v-show="isError" id="tips" class="tips">{{ errorTip }}</p>
             </div>
-			<div class="form-group clear" style="overflow: visible;">
-                <button id="loginBtn" class="login-btn" @click="login">登录</button>
-                <div class="cantlogin">
+			<div class="formGroup clear" style="overflow: visible;">
+                <button @click="login" id="loginBtn" class="loginBtn">登录</button>
+                <div class="cantLogin">
                     无法登录？
                     <div class="contact">
                         如您无法登录，可联系我们 020-28829750
@@ -156,45 +156,38 @@ export default {
     height: auto;
     transform: translate(-50%, -50%);
 }
-.logo {
+.loginLogo {
 	width: 100%;
     height: 60px;
     margin-bottom: 65px;
     overflow: hidden;
     text-align: center;
 }
-.logo > img {
-    display: inline-block;
-    vertical-align: middle;
+.loginLogo > img, .divide, .logoTitle {
+	display: inline-block;
+	vertical-align: middle;
+}
+.loginLogo > img {
     width: 130px;
 }
 .divide {
-    display: inline-block;
-    vertical-align: middle;
     height: 15px;
     border-left: 1px solid #CDCDCD;
     margin: 0 15px;
 }
-.logo-title {
-    display: inline-block;
-    vertical-align: middle;
+.logoTitle {
     font-weight: normal;
     font-size: 22px;
 }
-.mobile-tips, .mobile-link {
+.mobileTips, .mobileLink {
 	display: none;
 }
-.form-group {
-    position: relative;
-    overflow: hidden;
+.formGroup {
+	position: relative;
+	margin-bottom: 0;
 }
-.form-input {
-    width: 100%;
+.formInput {
     height: 45px;
-    font-size: 15px;
-    padding: 0 10px;
-    border: 1px solid #D3D3D3;
-    background-color: #fff;
 }
 #mobile {
     margin-bottom: 15px;
@@ -203,29 +196,27 @@ export default {
     width: 280px;
     margin-right: 15px;
 }
-input:disabled, button:disabled {
-    cursor: not-allowed;
-}
 .getValicode {
     width: 135px;
-    height: 45px;
-    line-height: 45px;
+	height: 45px;
+	padding: 0;
     font-size: 15px;
+    line-height: 45px;
     border: 1px solid #D3D3D3;
     background-color: #fff;
     color: #181818;
     cursor: pointer;
 }
-.autologin {
+.autoLogin {
     display: block;
 	margin: 20px 0 60px;
 	font-size: 14px;
     cursor: pointer;
 }
-.form-checkbox {
+.formCheckbox {
     display: none;
 }
-.form-checkbox + i {
+.formCheckbox + i {
     position: relative;
     display: inline-block;
     vertical-align: middle;
@@ -235,7 +226,7 @@ input:disabled, button:disabled {
     margin-right: 5px;
     border: 1px solid #D3D3D3;
 }
-.form-checkbox:checked + i:after {
+.formCheckbox:checked + i:after {
     position: absolute;
     display: block;
     content: "";
@@ -254,9 +245,8 @@ input:disabled, button:disabled {
 	width: 100%;
 	font-size: 14px;
     color: red;
-    // display: none;
 }
-.login-btn {
+.loginBtn {
     width: 100%;
     height: 45px;
     line-height: 45px;
@@ -266,7 +256,7 @@ input:disabled, button:disabled {
     font-size: 18px;
     cursor: pointer;
 }
-.cantlogin {
+.cantLogin {
     position: relative;
     height: 20px;
     line-height: 20px;

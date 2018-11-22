@@ -1,16 +1,16 @@
 <template>
-	<div class="order-detail">
+	<div class="orderDetail">
 		<MenuTitle v-bind:menuTitle="menuTitle"></MenuTitle>
-		<div class="classify-order">
+		<div class="classifyOrder">
 			<div class="container">
-				<span class="classify-ordermenu allorder" :class="{ active: chooseOrder == 'all' }" @click="chooseOrder = 'all'">全部订单</span>
-				<span class="classify-ordermenu already-pay" :class="{ active: chooseOrder == 'alreadyPay' }" @click="chooseOrder = 'alreadyPay'">已付款</span>
+				<span class="classifyOrderMenu allOrder" :class="{ active: chooseOrder == 'all' }" @click="chooseOrder = 'all'">全部订单</span>
+				<span class="classifyOrderMenu alreadyPay" :class="{ active: chooseOrder == 'alreadyPay' }" @click="chooseOrder = 'alreadyPay'">已付款</span>
 			</div>
 		</div>
-		<div class="order-list">
+		<div class="orderList">
 			<div class="graybg"></div>
 			<div class="container">
-				<table id="orderTable" class="order-table" cellspacing="0" cellpadding="0">
+				<table id="orderTable" class="orderTable" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr class="thead">
 							<th>订单号</th>
@@ -26,15 +26,15 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td class="white-divide" colspan="9"></td>
+							<td class="whiteDivide" colspan="9"></td>
 						</tr>
-						<template v-if="orderList.length != 0">
-							<template v-for="order in orderList">
-								<tr class="hasborder" v-bind:key="order.Id">
+						<template v-if="OrderList.length != 0">
+							<template v-for="order in OrderList">
+								<tr class="hasBorder" v-bind:key="order.Id">
 									<td>{{ order.Id }}</td>
 									<td>
-										<span class="order-date">{{ order.Date }}</span>
-										<span class="order-time">{{ order.Time }}</span>
+										<span class="orderDate">{{ order.Date }}</span>
+										<span class="orderTime">{{ order.Time }}</span>
 									</td>
 									<td>
 										<strong>{{ order.Money }}</strong>
@@ -42,53 +42,53 @@
 									<td>{{ order.Payment }}</td>
 									<td>{{ order.Contact }}</td>
 									<td>
-										<span class="paystatus" v-if="order.PayStatus == 1">已付款</span>
+										<span class="payStatus" v-if="order.PayStatus == 1">已付款</span>
 										<template v-else-if="order.PayStatus == 2">
-											<span class="paystatus">未审核</span>
-											<span class="cancel-order" @click="showCancelBox(order.Id)">取消订单</span>
+											<span class="payStatus">未审核</span>
+											<span class="cancelOrder" @click="showCancelBox(order.Id)">取消订单</span>
 										</template>
 										<template v-else-if="order.PayStatus == 0">
-											<span class="paystatus">未支付</span>
-											<span class="cancel-order" @click="showCancelBox(order.Id)">取消订单</span>
+											<span class="payStatus">未支付</span>
+											<span class="cancelOrder" @click="showCancelBox(order.Id)">取消订单</span>
 										</template>
-										<span class="paystatus" v-else-if="order.PayStatus == 5">已取消</span>
+										<span class="payStatus" v-else-if="order.PayStatus == 5">已取消</span>
 									</td>
 									<td>
 										<template v-if="order.PayStatus == 0 || order.PayStatus == 1 || order.PayStatus == 2">
 											<template v-if="order.InvoiceType == 0">
-												<span class="invoicestatus">未填写</span>
+												<span class="invoiceStatus">未填写</span>
 												<router-link :to="{ path: '/orders/invoice', query: { no: this.$route.query.no, orderId: order.Id } }">去开票</router-link>
 											</template>
-											<span class="invoicestatus" v-else-if="order.InvoiceType == 1 && order.InvoiceExpress != 0">已邮寄</span>
-											<span class="invoicestatus" v-else-if="order.InvoiceType == 255">不需要发票</span>
-											<span class="invoicestatus" v-else-if="order.InvoiceType == 2 && order.InvoiceStatus == 1">已发送邮箱</span>
-											<span class="invoicestatus" v-else>未开具</span>
+											<span class="invoiceStatus" v-else-if="order.InvoiceType == 1 && order.InvoiceExpress != 0">已邮寄</span>
+											<span class="invoiceStatus" v-else-if="order.InvoiceType == 255">不需要发票</span>
+											<span class="invoiceStatus" v-else-if="order.InvoiceType == 2 && order.InvoiceStatus == 1">已发送邮箱</span>
+											<span class="invoiceStatus" v-else>未开具</span>
 										</template>
-										<span class="invoicestatus" v-else-if="order.PayStatus == 5">已取消</span>
+										<span class="invoiceStatus" v-else-if="order.PayStatus == 5">已取消</span>
 									</td>
 									<td>
-										<table class="inner-table" cellspacing="0" cellpadding="0">
+										<table class="innerTable" cellspacing="0" cellpadding="0">
 											<tr v-for="ticket in order.Tickets" v-bind:key="ticket.Type">
 												<td>{{ ticket.TypeText }} x {{ ticket.Amount }}</td>
 											</tr>
 										</table>
 									</td>
 									<td>
-										<table class="inner-table" cellspacing="0" cellpadding="0">
+										<table class="innerTable" cellspacing="0" cellpadding="0">
 											<tr v-for="ticket in order.Tickets" v-bind:key="ticket.Type">
 												<td>
 													<template v-if="order.PayStatus == 5 || order.PayStatus == 0">
-														<a class="allot-link nopay" to="javascript:void(0);">分配参会人</a>
-														<span class="nopay-tips">
+														<a class="allotLink noPay" to="javascript:void(0);">分配参会人</a>
+														<span class="noPayTips">
 															?
-															<span class="nopaytip-text">该订单{{ order.PayStatus == 5 ? "已取消" : "未支付" }}，分配无效。</span>
+															<span class="noPayTipText">该订单{{ order.PayStatus == 5 ? "已取消" : "未支付" }}，分配无效。</span>
 														</span>
 													</template>
-													<router-link v-else-if="ticket.Allot == 0" class="allot-link" :to="{ path: '/orders/allocation', query: { no: $route.query.no, orderId: order.Id, ticketType: ticket.Type }}">分配参会人</router-link>
-													<span class="allot-status" v-else-if="ticket.Allot == ticket.Amount">已全部分配</span>
+													<router-link v-else-if="ticket.Allot == 0" class="allotLink" :to="{ path: '/orders/allocation', query: { no: $route.query.no, orderId: order.Id, ticketType: ticket.Type }}">分配参会人</router-link>
+													<span class="allotStatus" v-else-if="ticket.Allot == ticket.Amount">已全部分配</span>
 													<template v-else>
-														<span class="allot-status allot-tips">有{{ ticket.Amount - ticket.Allot }}张未分配</span>
-														<router-link class="allot-link" :to="{ path: '/orders/allocation', query: { no: $route.query.no, orderId: order.Id, ticketType: ticket.Type }}">点击分配</router-link>
+														<span class="allotStatus allotTips">有{{ ticket.Amount - ticket.Allot }}张未分配</span>
+														<router-link class="allotLink" :to="{ path: '/orders/allocation', query: { no: $route.query.no, orderId: order.Id, ticketType: ticket.Type }}">点击分配</router-link>
 													</template>
 												</td>
 											</tr>
@@ -96,37 +96,37 @@
 									</td>
 								</tr>
 								<tr v-bind:key="'id' + order.Id">
-									<td class="white-divide" colspan="9"></td>
+									<td class="whiteDivide" colspan="9"></td>
 								</tr>
 							</template>
 						</template>
-						<template v-else-if="orderList.length == 0 && chooseOrder == 'all'">
+						<template v-else-if="OrderList.length == 0 && chooseOrder == 'all'">
 							<tr>
-								<td class="no-order" colspan="9">
-									<p class="noorder-text">暂无订单~</p>
-									<a class="buyticket-link" :href="currentActivity.Link + 'register'" target="_blank">快去购票吧</a>
+								<td class="noOrder" colspan="9">
+									<p class="noOrderText">暂无订单~</p>
+									<a class="buyTicketLink" :href="CurrentActivity.Link + 'register'" target="_blank">快去购票吧</a>
 								</td>
 							</tr>
 							<tr>
-								<td class="white-divide" colspan="9"></td>
+								<td class="whiteDivide" colspan="9"></td>
 							</tr>
 						</template>
 						<template v-else>
 							<tr>
-								<td class="no-order" colspan="9">
-									<p class="nopayorder-text">暂无已付款订单~</p>
+								<td class="noOrder" colspan="9">
+									<p class="noPayOrderTtext">暂无已付款订单~</p>
 									<button class="checkAllOrder" @click="checkAllOrder">查看全部订单</button>
 								</td>
 							</tr>
 							<tr>
-								<td class="white-divide" colspan="9"></td>
+								<td class="whiteDivide" colspan="9"></td>
 							</tr>
 						</template>
 					</tbody>
 				</table>
-				<div class="pay-tips">
-					<p class="paytips-text lt">注：如选择了银行转账方式，请注意查收您的邮箱，我们会发送【付款提醒邮件】至您邮箱。</p>
-					<a class="buy-again rt" :href="currentActivity.Link +  'register'" target="_blank">继续购票</a>
+				<div class="payTips">
+					<p class="payTipsText lt">注：如选择了银行转账方式，请注意查收您的邮箱，我们会发送【付款提醒邮件】至您邮箱。</p>
+					<a class="buyAgain rt" :href="CurrentActivity.Link +  'register'" target="_blank">继续购票</a>
 				</div>
 			</div>
 		</div>
@@ -160,11 +160,11 @@ export default {
 		MenuTitle
 	},
 	computed: {
-		currentActivity() {
+		CurrentActivity() {
 			this.no = this.$route.query.no
 			return this.$store.getters.getActivityByNo(this.no)
 		},
-		orderList() {
+		OrderList() {
 			this.no = this.$route.query.no
 			return this.$store.getters.getCurrentOrderList(this.no, this.chooseOrder)
 		}
@@ -198,12 +198,12 @@ export default {
 </script>
 
 <style lang="scss">
-.order-detail {
+.orderDetail {
     width: calc(100% - 250px);
     width: -wekit-calc(100% - 250px);
     width: -moz-calc(100% - 250px);
 }
-.classify-order {
+.classifyOrder {
     height: 50px;
     background-color: #fff;
     padding-bottom: 15px;
@@ -211,7 +211,7 @@ export default {
 		width: 97%;
 	}
 }
-.classify-ordermenu {
+.classifyOrderMenu {
     box-sizing: border-box;
     display: inline-block;
     height: 30px;
@@ -222,15 +222,14 @@ export default {
     margin-top: 15px;
     cursor: pointer;
 }
-.allorder {
+.allOrder {
     margin-right: 40px;
 }
-.classify-ordermenu.active {
+.classifyOrderMenu.active {
     color: #1683ef;
     border-bottom: 2px solid #1683ef;
 }
-.order-list {
-    // display: block;
+.orderList {
 	background-color: #fff;
 	padding-bottom: 25px;
 	> .container {
@@ -244,7 +243,7 @@ export default {
     height: 50px;
     background-color: #EEEEEE;
 }
-.order-table, .inner-table {
+.orderTable, .innerTable {
     width: 99.8%;
     font-size: 14px;
     text-align: center;
@@ -261,55 +260,55 @@ td {
     height: 120px;
     min-height: 120px;
 }
-.white-divide {
+.whiteDivide {
     height: 15px;
     background-color: #fff;
 }
-.hasborder, .hasborder > td {
+.hasBorder, .hasBorder > td {
     border: 1px solid #DEDEDE;
 }
-.order-date, .order-time, .paystatus, .cancel-order, .allot-link, .allot-status, .invoiceStatus, .goInvoice {
+.orderDate, .orderTime, .payStatus, .cancelOrder, .allotLink, .allotStatus, .invoiceStatus, .goInvoice {
     display: block;
 }
-.order-date, .order-time {
+.orderDate, .orderTime {
     height: 25px;
     line-height: 25px;
 }
-.paystatus {
+.payStatus {
     height: 30px;
     line-height: 30px;
     font-size: 14px;
     color: #FF1C20;
 }
-.cancel-order {
+.cancelOrder {
     height: 30px;
     line-height: 30px;
     cursor: pointer;
     font-size: 14px;
     color: #858585;
 }
-.inner-table {
+.innerTable {
     font-size: 14px;
 	td {
 		height: 60px;
 	}
 }
-.inner-table tr:not(:last-child) td {
+.innerTable tr:not(:last-child) td {
     border-bottom: 1px solid #DEDEDE;
 }
-.allot-link {
+.allotLink {
     line-height: 20px;
     color: #1683ef;
     text-decoration: underline;
     margin-top: 3px;
 }
-.nopay {
+.noPay {
     display: inline-block;
     color: #999999;
     cursor: not-allowed;
     text-decoration: none;
 }
-.nopay-tips {
+.noPayTips {
     position: relative;
     display: inline-block;
     width: 17px;
@@ -322,7 +321,7 @@ td {
     color: #fff;
     cursor: pointer;
 }
-.nopaytip-text {
+.noPayTipText {
     position: absolute;
     width: 195px;
     height: 25px;
@@ -336,24 +335,24 @@ td {
     color: #181818;
     display: none;
 }
-.nopay-tips:hover .nopaytip-text {
+.noPayTips:hover .noPayTipText {
     display: block;
 }
-.pay-tips {
+.payTips {
     overflow: hidden;
     height: 40px;
     margin: 25px 0;
 }
-.paytips-text {
+.payTipsText {
     width: 80%;
     font-size: 15px;
     line-height: 40px;
     color: #777777;
 }
-.nopay-order {
+.noPayOrder {
     height: 120px;
 }
-.nopayorder-text, .noorder-text {
+.noPayOrderText, .noOrderText {
     font-size: 15px;
     color: #858585;
     margin-bottom: 10px;
@@ -368,7 +367,7 @@ td {
 	border-radius: 2px;
 	cursor: pointer;
 }
-.buyticket-link {
+.buyTicketLink {
 	padding: 5px 15px;
 	font-size: 15px;
 	line-height: 20px;
@@ -377,11 +376,11 @@ td {
 	border-radius: 2px;
 }
 @media screen and (max-width: 1400px) {
-	.paytips-text {
+	.payTipsText {
 		line-height: 20px;
 	}
 }
-.buy-again {
+.buyAgain {
     height: 40px;
     line-height: 40px;
     padding: 0 40px;
