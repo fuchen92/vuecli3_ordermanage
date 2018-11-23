@@ -261,7 +261,7 @@ export default {
     margin-bottom: 10px;
     color: #777777;
 }
-@media screen {
+@media screen and (max-width: 1400px) {
 	.auditAttentionText {
 		width: 80%;
 	}
