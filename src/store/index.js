@@ -3,13 +3,19 @@ import Vuex from "vuex"
 
 Vue.use(Vuex)
 
-import { getUserAccount, fetchActivities, getOrders } from "./api"
+import {
+	getUserAccount,
+	fetchActivities,
+	getOrders,
+	getAllots
+} from "./api"
 
 export default new Vuex.Store({
 	state: {
 		Account: {},
 		ActivityList: [],
-		Orders: {}
+		Orders: {},
+		Allots: {}
 	},
 	mutations: {
 		INITACCOUNT(state, { account }) {
@@ -24,6 +30,9 @@ export default new Vuex.Store({
 		},
 		INITORDERS(state, { orders }) {
 			state.Orders = orders
+		},
+		INITALLOTS(state, { allots }) {
+			state.Allots = allots
 		},
 		CANCELORDERBYID(state, { no, willCancelOrderId }) {
 			Vue.set(state.Orders[no].find(order => order.Id == willCancelOrderId), "PayStatus", 5)
@@ -47,6 +56,12 @@ export default new Vuex.Store({
 				commit("INITORDERS", { orders: res.data.Orders })
 			})
 		},
+		// 初始化所有已分配列表
+		getAllots({ commit }) {
+			getAllots().then(res => {
+				commit("INITALLOTS", { allots: res.data.Allots })
+			})
+		},
 		// 根据id取消订单
 		cancelOrderById({ commit }, { no, willCancelOrderId }) {
 			commit("CANCELORDERBYID", { no, willCancelOrderId })
@@ -66,6 +81,9 @@ export default new Vuex.Store({
 					return order.PayStatus == 1
 				})
 			}
+		},
+		getCurrentAllotsByNo: (state) => (no) => {
+			return state.Allots[no]
 		}
 	}
 })

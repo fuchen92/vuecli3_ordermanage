@@ -11,3 +11,7 @@ export function fetchActivities() {
 export function getOrders() {
 	return axios.get(`http://localhost:8081/api/activity/`)
 }
+
+export function getAllots() {
+	return axios.get(`http://localhost:8081/api/activity/`)
+}

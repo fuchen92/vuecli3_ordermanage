@@ -87,7 +87,7 @@
 													<router-link v-else-if="ticket.Allot == 0" class="allotLink" :to="{ path: '/orders/allocation', query: { no: $route.query.no, orderId: order.Id, ticketType: ticket.Type }}">分配参会人</router-link>
 													<span class="allotStatus" v-else-if="ticket.Allot == ticket.Amount">已全部分配</span>
 													<template v-else>
-														<span class="allotStatus allotTips">有{{ ticket.Amount - ticket.Allot }}张未分配</span>
+														<span class="allotStatus">有{{ ticket.Amount - ticket.Allot }}张未分配</span>
 														<router-link class="allotLink" :to="{ path: '/orders/allocation', query: { no: $route.query.no, orderId: order.Id, ticketType: ticket.Type }}">点击分配</router-link>
 													</template>
 												</td>
@@ -124,21 +124,21 @@
 						</template>
 					</tbody>
 				</table>
-				<div class="payTips">
-					<p class="payTipsText lt">注：如选择了银行转账方式，请注意查收您的邮箱，我们会发送【付款提醒邮件】至您邮箱。</p>
+				<div class="bankPayTips">
+					<p class="bankPayTipsText lt">注：如选择了银行转账方式，请注意查收您的邮箱，我们会发送【付款提醒邮件】至您邮箱。</p>
 					<a class="buyAgain rt" :href="CurrentActivity.Link +  'register'" target="_blank">继续购票</a>
 				</div>
 			</div>
 		</div>
 		<div class="fixedDialog cancelBox" v-show="isShow">
-			<div class="fixedDialog-bg"></div>
-			<div class="fixedDialog-wrapper">
+			<div class="fixedDialogBg"></div>
+			<div class="fixedDialogWrapper">
 				<div id="closeFixedDialog" class="closeFixedDialog" @click="closeDialog">×</div>
-				<h3 class="fixedDialog-title">取消订单</h3>
-				<p class="fixedDialog-desc">您确定要取消订单吗？</p>
+				<h3 class="fixedDialogTitle">取消订单</h3>
+				<p class="fixedDialogDesc">您确定要取消订单吗？</p>
 				<div class="fixedBtns">
-					<button id="cancelBtn" type="button" class="cancelBtn" @click="closeDialog">取消</button>
-					<button id="confirmBtn" type="button" class="confirmBtn" @click="confirmCancelOrder">确定</button>
+					<button id="cancelBtn" class="cancelBtn" @click="closeDialog">取消</button>
+					<button id="confirmBtn" class="confirmBtn" @click="confirmCancelOrder">确定</button>
 				</div>
 			</div>
 		</div>
@@ -338,12 +338,12 @@ td {
 .noPayTips:hover .noPayTipText {
     display: block;
 }
-.payTips {
+.bankPayTips {
     overflow: hidden;
     height: 40px;
     margin: 25px 0;
 }
-.payTipsText {
+.bankPayTipsText {
     width: 80%;
     font-size: 15px;
     line-height: 40px;
@@ -376,7 +376,7 @@ td {
 	border-radius: 2px;
 }
 @media screen and (max-width: 1400px) {
-	.payTipsText {
+	.bankPayTipsText {
 		line-height: 20px;
 	}
 }
@@ -397,12 +397,12 @@ td {
     height: 100%;
     // display: none;
 }
-.fixedDialog-bg {
+.fixedDialogBg {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
 }
-.fixedDialog-wrapper {
+.fixedDialogWrapper {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -423,7 +423,7 @@ td {
     line-height: 20px;
     cursor: pointer;
 }
-.fixedDialog-title {
+.fixedDialogTitle {
     box-sizing: border-box;
     height: 45px;
     background-color: #F8F8F8;
@@ -434,7 +434,7 @@ td {
     line-height: 44px;
     font-weight: normal;
 }
-.fixedDialog-desc {
+.fixedDialogDesc {
     box-sizing: border-box;
 	height: 60px;
 	font-size: 14px;

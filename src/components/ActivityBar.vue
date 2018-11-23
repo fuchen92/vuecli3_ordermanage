@@ -9,9 +9,9 @@
 			<div class="moreActivity rt">
 				查看2018其他活动
 				<div class="otherActivities">
-					<router-link class="otheractivityLink" to="/orders?no=63">2018 TDC</router-link>
-					<router-link class="otheractivityLink" to="/orders?no=56">2018 HMC</router-link>
-					<router-link class="otheractivityLink" to="/orders?no=46">2018 AMC</router-link>
+					<router-link class="otherActivityLink" to="/orders?no=63">2018 TDC</router-link>
+					<router-link class="otherActivityLink" to="/orders?no=56">2018 HMC</router-link>
+					<router-link class="otherActivityLink" to="/orders?no=46">2018 AMC</router-link>
 				</div>
 			</div>
 		</div>
@@ -76,7 +76,7 @@ export default {
     border-top: 0;
     display: none;
 }
-.otheractivityLink {
+.otherActivityLink {
     display: block;
     padding: 0 15px;
     color: #333333;

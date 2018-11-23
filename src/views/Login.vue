@@ -134,7 +134,8 @@ export default {
 		...mapActions({
 			initAccount: "getUserAccount",
 			initActivityList: "getActivities",
-			initOrders: "getOrders"
+			initOrders: "getOrders",
+			initAllots: "getAllots"
 		})
 	},
 	beforeDestroy() {
@@ -143,6 +144,7 @@ export default {
 		this.initAccount(this.mobile)
 		this.initActivityList()
 		this.initOrders()
+		this.initAllots()
 	}
 }
 </script>

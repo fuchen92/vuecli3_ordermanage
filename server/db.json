@@ -58,25 +58,25 @@
                         "Type": 1,
                         "TypeText": "VIP票",
                         "Amount": 2,
-                        "Allot": 2
+                        "Allot": 0
                     },
                     {
                         "Type": 2,
                         "TypeText": "直通票",
                         "Amount": 2,
-                        "Allot": 1
+                        "Allot": 0
                     },
                     {
                         "Type": 3,
                         "TypeText": "普通票",
                         "Amount": 2,
-                        "Allot": 1
+                        "Allot": 0
                     },
                     {
                         "Type": 4,
                         "TypeText": "展览票",
                         "Amount": 2,
-                        "Allot": 1
+                        "Allot": 0
                     }
                 ]
             },
@@ -87,7 +87,7 @@
                 "Money": "￥15800",
                 "Payment": "银行转账",
                 "Contact": "周永康",
-                "PayStatus": 2,
+                "PayStatus": 1,
                 "InvoiceType": 1,
                 "InvoiceExpress": 0,
                 "InvoiceStatus": 10,
@@ -96,7 +96,7 @@
                         "Type": 1,
                         "TypeText": "VIP票",
                         "Amount": 2,
-                        "Allot": 2
+                        "Allot": 1
                     },
                     {
                         "Type": 3,
@@ -134,7 +134,7 @@
                         "Type": 4,
                         "TypeText": "展览票",
                         "Amount": 2,
-                        "Allot": 2
+                        "Allot": 1
                     }
                 ]
             }
@@ -142,27 +142,109 @@
         "56": [],
         "46": []
     },
-    "AllotList": {
-        "63": [
-            {
-                "Id": 28650,
-                "AllotId": 1,
-                "NameCn": "习大大",
-                "NameEn": "xidada",
-                "Sex": 1,
-                "CompanyCn": "中华人民共和国",
-                "CompanyEn": "China",
-                "JobCn": "国家主席",
-                "JobEn": "zhuxi",
-                "TicketType": 1,
-                "PayStatus": 1,
-                "Mobile": 13988887777,
-                "Tel": "010-1111",
-                "Email": "china@china.com",
-                "AuditStatus": 0,
-                "Industry": 77,
-                "Function": 265
-            }
-        ]
+    "Allots": {
+        "63": {
+            "TicketsAmount": 18,
+            "AllotedAmount": 5,
+            "AllotList": [
+                {
+                    "Id": 28651,
+                    "AllotId": 1,
+                    "NameCn": "张三",
+                    "NameEn": "zhangsan",
+                    "Sex": 1,
+                    "CompanyCn": "公安局",
+                    "CompanyEn": "gonganju",
+                    "JobCn": "警察",
+                    "JobEn": "jingcha",
+                    "Mobile": 15958140110,
+                    "Email": "zhangsan@china.com",
+                    "Tel": "010-110",
+                    "TicketType": 1,
+                    "PayStatus": 1,
+                    "AuditStatus": 0,
+                    "Industry": 77,
+                    "Function": 2
+                },
+                {
+                    "Id": 28651,
+                    "AllotId": 2,
+                    "NameCn": "李四",
+                    "NameEn": "lisi",
+                    "Sex": 1,
+                    "CompanyCn": "医院",
+                    "CompanyEn": "yiyuan",
+                    "JobCn": "医生",
+                    "JobEn": "yisheng",
+                    "Mobile": 15958140120,
+                    "Email": "lisi@china.com",
+                    "Tel": "010-120",
+                    "TicketType": 3,
+                    "PayStatus": 1,
+                    "AuditStatus": 0,
+                    "Industry": 77,
+                    "Function": 2
+                },
+                {
+                    "Id": 28651,
+                    "AllotId": 3,
+                    "NameCn": "王五",
+                    "NameEn": "wangwu",
+                    "Sex": 1,
+                    "CompanyCn": "消防局",
+                    "CompanyEn": "xiaofangju",
+                    "JobCn": "火警",
+                    "JobEn": "huojing",
+                    "Mobile": 15958140119,
+                    "Email": "wangwu@china.com",
+                    "Tel": "010-119",
+                    "TicketType": 4,
+                    "PayStatus": 1,
+                    "AuditStatus": 0,
+                    "Industry": 77,
+                    "Function": 2
+                },
+                {
+                    "Id": 28652,
+                    "AllotId": 5,
+                    "NameCn": "赵六",
+                    "NameEn": "zhaoliu",
+                    "Sex": 1,
+                    "CompanyCn": "学校",
+                    "CompanyEn": "xuexiao",
+                    "JobCn": "教师",
+                    "JobEn": "teacher",
+                    "Mobile": 15958140188,
+                    "Email": "zhaoliu@china.com",
+                    "Tel": "010-188",
+                    "TicketType": 3,
+                    "PayStatus": 1,
+                    "AuditStatus": 1,
+                    "Industry": 77,
+                    "Function": 2
+                },
+                {
+                    "Id": 28652,
+                    "AllotId": 6,
+                    "NameCn": "刘七",
+                    "NameEn": "liuqi",
+                    "Sex": 1,
+                    "CompanyCn": "工商局",
+                    "CompanyEn": "gongshangju",
+                    "JobCn": "局长",
+                    "JobEn": "juzhang",
+                    "Mobile": 15958140123,
+                    "Email": "liuqi@china.com",
+                    "Tel": "010-12345",
+                    "TicketType": 4,
+                    "PayStatus": 1,
+                    "AuditStatus": 1,
+                    "Industry": 77,
+                    "Function": 2
+                }
+            ]
+        },
+        "56": {},
+        "46": {}
     }
 }
