@@ -82,6 +82,7 @@ export default new Vuex.Store({
 				})
 			}
 		},
+		// 根据no获取当前活动分配的相关信息，已分配个数，未分配个数，分配列表
 		getCurrentAllotsByNo: (state) => (no) => {
 			return state.Allots[no]
 		}

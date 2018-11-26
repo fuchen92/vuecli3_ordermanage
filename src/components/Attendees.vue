@@ -41,8 +41,8 @@
 								<td class="alreadyAllot" :rowspan="AllotList.length + 1" style="border: none;">已分配门票</td>
 								<td colspan="10" style="border: 0; height: 0;"></td>
 							</tr>
-							<tr v-for="(allot, index) in AllotList" v-bind:key="index" class="hasBorder alloted">
-								<td class="allotId" style="width: 50px;">{{ index + 1 }}</td>
+							<tr v-for="(allot, index) in AllotList" v-bind:key="index" v-bind:data-id="allot.Id" class="hasBorder alloted">
+								<td>{{ index + 1 }}</td>
 								<td>{{ allot.NameCn }}</td>
 								<td>{{ allot.Sex == 1 ? "男" : "女" }}</td>
 								<td>{{ allot.CompanyCn }}</td>
@@ -64,7 +64,7 @@
 											<span class="auditTipText">您的参会信息已审核确认，如需修改，请联系我们020-28829750或register@traveldaily.cn</span>
 										</span>
 									</template>
-									<button v-else @click="showChangeAllotBox" class="changeBtn">修改</button>
+									<button v-else @click="showChangeAllotBox(allot)" class="changeBtn">修改</button>
 								</td>
 							</tr>
 						</template>
@@ -79,6 +79,110 @@
 				</div>
 			</div>
 		</div>
+		<div id="changeAllot" class="changeAllot" v-show="isShowChangeAllotBox">
+			<div class="changeAllotBg"></div>
+			<div class="changeAllotContent">
+				<div @click="closeChangeAllot" class="closeChangeAllot">×</div>
+				<ul class="changeAllotForm">
+					<li class="formGroup">
+						<div class="formItem lt">
+							<input v-model="willChange.NameCn" class="allotInput" placeholder="中文姓名">
+							<p class="formTips"></p>
+						</div>
+						<div class="formItem rt">
+							<input v-model="willChange.NameEn" class="allotInput" placeholder="英文姓名">
+							<p class="formTips"></p>
+						</div>
+					</li>
+					<li class="formGroup">
+						<div class="formItem lt">
+							<input v-model="willChange.CompanyCn" class="allotInput" placeholder="中文公司名称">
+							<p class="formTips"></p>
+							<p class="formDesc">将展示在参会胸牌， 8 个汉字内为宜</p>
+						</div>
+						<div class="formItem rt">
+							<input v-model="willChange.CompanyEn" class="allotInput" placeholder="英文公司名称">
+							<p class="formTips"></p>
+							<p class="formDesc">将展示在胸牌，请区分大小写，18 个字母内为宜</p>
+						</div>
+					</li>
+					<li class="formGroup">
+						<div class="formItem lt">
+							<input v-model="willChange.JobCn" class="allotInput" placeholder="中文职位名称">
+							<p class="formTips"></p>
+						</div>
+						<div class="formItem rt">
+							<input v-model="willChange.JobEn" class="allotInput" placeholder="英文职位名称">
+							<p class="formTips"></p>
+							<p class="formDesc">请区分大小写</p>
+						</div>
+					</li>
+					<li class="formGroup">
+						<div class="formItem lt">
+							<input v-model="willChange.Mobile" class="allotInput" placeholder="手机号码">
+							<p class="formTips"></p>
+							<p class="formDesc">请填写参会人手机号码以便接收通知</p>
+						</div>
+						<div class="formItem rt">
+							<input v-model="willChange.Tel" class="allotInput" placeholder="固话号码">
+							<p class="formTips"></p>
+							<p class="formDesc">格式：010-12345678-001</p>
+						</div>
+					</li>
+					<li class="formGroup" style="overflow: visible;">
+						<div class="formItem lt">
+							<input v-model="willChange.Email" class="allotInput" placeholder="Email地址">
+							<p class="formTips"></p>
+							<p class="formDesc">请填写参会人Email地址以便接收通知</p>
+						</div>
+						<div id="changeIndustryContainer" class="formItem rt">
+							<div @click.stop="showIndustryBox" class="allotInput industrySelect" tabindex="0">
+								<div class="industryShow">
+									<span v-bind:data-id="willChange.Industry" class="industryTag">{{ willChange.IndustryText }}</span>
+								</div>
+							</div>
+							<div @click.stop="chooseIndustry" v-show="isShowIndustryBox" id="industryBox" class="industryBox">
+								<div class="industryGroup">
+									<span class="industryLabel">旅游企业</span>
+									<div class="industryCategory">
+										<span class="industryTag" data-id="77">航空公司</span>
+										<span class="industryTag" data-id="78">酒店/非标准住宿</span>
+										<span class="industryTag" data-id="79">在线旅游</span>
+										<span class="industryTag" data-id="80">旅行社/机票代理人</span>
+										<span class="industryTag" data-id="81">目的地景区</span>
+									</div>
+								</div>
+							</div>
+							<p class="formTips"></p>
+						</div>
+					</li>
+					<li class="formGroup">
+						<div class="formItem lt">
+							<select v-model="willChange.Function" class="allotInput allotSelect">
+								<option value="0">请选择职能</option>
+								<option value="265">高层管理</option>
+								<option value="266">市场/营销</option>
+								<option value="267">销售/BD</option>
+								<option value="268">产品</option>
+								<option value="269">运营</option>
+								<option value="270">电商</option>
+								<option value="271">技术</option>
+								<option value="272">其他</option>
+							</select>
+							<p class="formTips"></p>
+						</div>
+						<div class="formItem rt">
+							<select v-model="willChange.Sex" class="allotInput allotSelect">
+								<option value="0">请选择性别</option>
+								<option value="1">先生</option>
+								<option value="2">女士</option>
+							</select>
+						</div>
+					</li>
+				</ul>
+				<button @click="submitChangeAllot" id="submitChangeAllot" class="submitChangeAllot">确认修改</button>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -89,7 +193,10 @@ export default {
 		return {
 			menuTitle: "参会人员信息管理",
 			// AllotList: [],
-			isShowChangeAllotBox: false
+			isShowChangeAllotBox: false,
+			isShowIndustryBox: false,
+			willChange: {},
+			cloneWillChange: {}
 		}
 	},
 	components: {
@@ -110,9 +217,23 @@ export default {
 		}
 	},
 	methods: {
-		showChangeAllotBox() {
+		showChangeAllotBox(willChangeAllot) {
 			this.isShowChangeAllotBox = true
-			console.log(this.isShowChangeAllotBox)
+			this.willChange = willChangeAllot
+		},
+		closeChangeAllot() {
+			this.isShowChangeAllotBox = false;
+			this.isShowIndustryBox = false;
+			this.willChange = {}
+		},
+		showIndustryBox() {
+			this.isShowIndustryBox = !this.isShowIndustryBox;
+		},
+		chooseIndustry(event) {
+			console.log(event)
+		},
+		submitChangeAllot() {
+			console.log(this.willChange)
 		}
 	}
 }
@@ -265,5 +386,159 @@ export default {
 	.auditAttentionText {
 		width: 80%;
 	}
+}
+
+.changeAllot {
+	position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    // display: none;
+}
+.changeAllotBg {
+	width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.changeAllotContent {
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+}
+.closeChangeAllot {
+	position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 35px;
+    cursor: pointer;
+}
+.changeAllotForm {
+	margin-top: 20px;
+}
+.formGroup::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+.formItem {
+    position: relative;
+    width: 45%;
+    height: 65px;
+}
+.allotInput, .allotSelect {
+    width: 100%;
+    height: 40px;
+    font-size: 15px;
+    padding: 0 10px;
+    border: 1px solid #D3D3D3;
+    background-color: #F8F8F8;
+    color: #565656;
+    border-radius: 2px;
+}
+.formTips {
+    height: 20px;
+    line-height: 20px;
+    margin-top: 5px;
+    font-size: 12px;
+    color: red;
+    display: none;
+}
+.formDesc {
+    padding: 0 13px;
+    font-size: 12px;
+    line-height: 20px;
+    margin-top: 5px;
+    color: #858585;
+    display: none;
+}
+.formDesc::before {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    vertical-align: middle;
+    content: "";
+    border: 4px transparent solid;
+    border-bottom: 4px #858585 solid;
+    margin-top: -4px;
+    margin-right: 8px;
+    zoom: 1;
+}
+.industrySelect {
+    box-sizing: border-box;
+    overflow: hidden;
+    background: url(../assets/caret.png) #F8F8F8 right 10px center no-repeat;
+}
+.industryShow {
+    width: 100%;
+    height: 100%;
+    line-height: 38px;
+    float: left;
+	.industryTag {
+		line-height: 38px;
+	}
+}
+.industryBox {
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 100%;
+    width: 100%;
+    height: 300px;
+    padding: 5px;
+    background-color: #fff;
+    border: 1px solid #999;
+    border-bottom: 0;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    z-index: 100;
+    // display: none;
+}
+.industryGroup {
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+.industryLabel, .industryCategory {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 14px;
+}
+.industryLabel {
+    width: 90px;
+    line-height: 25px;
+    text-align: center;
+    font-weight: bold;
+}
+.industryCategory {
+    width: calc(100% - 95px);
+    width: -webkit-calc(100% - 95px);
+    width: -moz-calc(100% - 95px);
+    overflow: hidden;
+}
+.industryTag {
+    float: left;
+    line-height: 25px;
+    margin: 0 20px 0 0;
+    cursor: pointer;
+}
+.submitChangeAllot {
+    display: block;
+    width: 180px;
+    height: 40px;
+    background-color: #1683ef;
+    color: #fff;
+    text-align: center;
+    font-size: 15px;
+    line-height: 40px;
+    margin: 20px auto 0;
+    font-size: 16px;
+    cursor: pointer;
 }
 </style>

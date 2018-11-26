@@ -13,7 +13,7 @@
             "No": 63,
             "Link": "/tdc2018/",
             "Logo": "activity-1.png",
-            "Name": "2018环球旅讯峰会&中国数字旅游展",
+            "Name": "2018环球旅讯峰会&数字旅游展",
             "Alias": "2018 TDC",
             "Time": "2018年9月19日 - 21日",
             "Site": "上海长风跨国采购中心",
@@ -149,7 +149,6 @@
             "AllotList": [
                 {
                     "Id": 28651,
-                    "AllotId": 1,
                     "NameCn": "张三",
                     "NameEn": "zhangsan",
                     "Sex": 1,
@@ -164,11 +163,11 @@
                     "PayStatus": 1,
                     "AuditStatus": 0,
                     "Industry": 77,
-                    "Function": 2
+                    "IndustryText": "航空公司",
+                    "Function": 266
                 },
                 {
                     "Id": 28651,
-                    "AllotId": 2,
                     "NameCn": "李四",
                     "NameEn": "lisi",
                     "Sex": 1,
@@ -182,12 +181,12 @@
                     "TicketType": 3,
                     "PayStatus": 1,
                     "AuditStatus": 0,
-                    "Industry": 77,
-                    "Function": 2
+                    "Industry": 79,
+                    "IndustryText": "在线旅游",
+                    "Function": 271
                 },
                 {
                     "Id": 28651,
-                    "AllotId": 3,
                     "NameCn": "王五",
                     "NameEn": "wangwu",
                     "Sex": 1,
@@ -201,12 +200,12 @@
                     "TicketType": 4,
                     "PayStatus": 1,
                     "AuditStatus": 0,
-                    "Industry": 77,
-                    "Function": 2
+                    "Industry": 78,
+                    "IndustryText": "酒店/非标准住宿",
+                    "Function": 272
                 },
                 {
                     "Id": 28652,
-                    "AllotId": 5,
                     "NameCn": "赵六",
                     "NameEn": "zhaoliu",
                     "Sex": 1,
@@ -220,12 +219,12 @@
                     "TicketType": 3,
                     "PayStatus": 1,
                     "AuditStatus": 1,
-                    "Industry": 77,
-                    "Function": 2
+                    "Industry": 80,
+                    "IndustryText": "旅行社/机票代理人",
+                    "Function": 272
                 },
                 {
                     "Id": 28652,
-                    "AllotId": 6,
                     "NameCn": "刘七",
                     "NameEn": "liuqi",
                     "Sex": 1,
@@ -239,8 +238,9 @@
                     "TicketType": 4,
                     "PayStatus": 1,
                     "AuditStatus": 1,
-                    "Industry": 77,
-                    "Function": 2
+                    "Industry": 81,
+                    "IndustryText": "目的地景区",
+                    "Function": 265
                 }
             ]
         },

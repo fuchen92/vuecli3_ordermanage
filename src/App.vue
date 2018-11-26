@@ -54,6 +54,9 @@ input, button, select {
     border-radius: 2px;
     font-family: Arial, "Microsoft Yahei";
 }
+input:focus, select:focus {
+    border: 1px solid #565656;
+}
 select::-ms-expand { display: none; }
 select {
     background-image: url(./assets/caret.png);
