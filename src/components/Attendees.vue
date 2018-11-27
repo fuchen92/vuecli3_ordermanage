@@ -86,59 +86,59 @@
 				<ul class="changeAllotForm">
 					<li class="formGroup">
 						<div class="formItem lt">
-							<input v-model="willChange.NameCn" class="allotInput" placeholder="中文姓名">
+							<input v-model.lazy="cloneWillChange.NameCn" class="allotInput" placeholder="中文姓名">
 							<p class="formTips"></p>
 						</div>
 						<div class="formItem rt">
-							<input v-model="willChange.NameEn" class="allotInput" placeholder="英文姓名">
+							<input v-model="cloneWillChange.NameEn" class="allotInput" placeholder="英文姓名">
 							<p class="formTips"></p>
 						</div>
 					</li>
 					<li class="formGroup">
 						<div class="formItem lt">
-							<input v-model="willChange.CompanyCn" class="allotInput" placeholder="中文公司名称">
+							<input v-model="cloneWillChange.CompanyCn" class="allotInput" placeholder="中文公司名称">
 							<p class="formTips"></p>
 							<p class="formDesc">将展示在参会胸牌， 8 个汉字内为宜</p>
 						</div>
 						<div class="formItem rt">
-							<input v-model="willChange.CompanyEn" class="allotInput" placeholder="英文公司名称">
+							<input v-model="cloneWillChange.CompanyEn" class="allotInput" placeholder="英文公司名称">
 							<p class="formTips"></p>
 							<p class="formDesc">将展示在胸牌，请区分大小写，18 个字母内为宜</p>
 						</div>
 					</li>
 					<li class="formGroup">
 						<div class="formItem lt">
-							<input v-model="willChange.JobCn" class="allotInput" placeholder="中文职位名称">
+							<input v-model="cloneWillChange.JobCn" class="allotInput" placeholder="中文职位名称">
 							<p class="formTips"></p>
 						</div>
 						<div class="formItem rt">
-							<input v-model="willChange.JobEn" class="allotInput" placeholder="英文职位名称">
+							<input v-model="cloneWillChange.JobEn" class="allotInput" placeholder="英文职位名称">
 							<p class="formTips"></p>
 							<p class="formDesc">请区分大小写</p>
 						</div>
 					</li>
 					<li class="formGroup">
 						<div class="formItem lt">
-							<input v-model="willChange.Mobile" class="allotInput" placeholder="手机号码">
+							<input v-model="cloneWillChange.Mobile" class="allotInput" placeholder="手机号码">
 							<p class="formTips"></p>
 							<p class="formDesc">请填写参会人手机号码以便接收通知</p>
 						</div>
 						<div class="formItem rt">
-							<input v-model="willChange.Tel" class="allotInput" placeholder="固话号码">
+							<input v-model="cloneWillChange.Tel" class="allotInput" placeholder="固话号码">
 							<p class="formTips"></p>
 							<p class="formDesc">格式：010-12345678-001</p>
 						</div>
 					</li>
 					<li class="formGroup" style="overflow: visible;">
 						<div class="formItem lt">
-							<input v-model="willChange.Email" class="allotInput" placeholder="Email地址">
+							<input v-model="cloneWillChange.Email" class="allotInput" placeholder="Email地址">
 							<p class="formTips"></p>
 							<p class="formDesc">请填写参会人Email地址以便接收通知</p>
 						</div>
-						<div id="changeIndustryContainer" class="formItem rt">
-							<div @click.stop="showIndustryBox" class="allotInput industrySelect" tabindex="0">
+						<div class="formItem rt">
+							<!-- <div @click.stop="showIndustryBox" class="allotInput industrySelect" tabindex="0">
 								<div class="industryShow">
-									<span v-bind:data-id="willChange.Industry" class="industryTag">{{ willChange.IndustryText }}</span>
+									<span v-bind:data-id="cloneWillChange.Industry" class="industryTag">{{ cloneWillChange.IndustryText }}</span>
 								</div>
 							</div>
 							<div @click.stop="chooseIndustry" v-show="isShowIndustryBox" id="industryBox" class="industryBox">
@@ -152,13 +152,14 @@
 										<span class="industryTag" data-id="81">目的地景区</span>
 									</div>
 								</div>
-							</div>
+							</div> -->
+							<IndustrySimulateSelect :Industry="industry" class="allotInput"></IndustrySimulateSelect>
 							<p class="formTips"></p>
 						</div>
 					</li>
 					<li class="formGroup">
 						<div class="formItem lt">
-							<select v-model="willChange.Function" class="allotInput allotSelect">
+							<select v-model="cloneWillChange.Function" class="allotInput allotSelect">
 								<option value="0">请选择职能</option>
 								<option value="265">高层管理</option>
 								<option value="266">市场/营销</option>
@@ -172,7 +173,7 @@
 							<p class="formTips"></p>
 						</div>
 						<div class="formItem rt">
-							<select v-model="willChange.Sex" class="allotInput allotSelect">
+							<select v-model="cloneWillChange.Sex" class="allotInput allotSelect">
 								<option value="0">请选择性别</option>
 								<option value="1">先生</option>
 								<option value="2">女士</option>
@@ -188,19 +189,79 @@
 
 <script>
 import MenuTitle from "@/components/MenuTitle.vue"
+import IndustrySimulateSelect from "@/components/IndustrySimulateSelect.vue"
 export default {
 	data() {
 		return {
 			menuTitle: "参会人员信息管理",
 			// AllotList: [],
 			isShowChangeAllotBox: false,
-			isShowIndustryBox: false,
 			willChange: {},
-			cloneWillChange: {}
+			cloneWillChange: {},
+			industry: {
+				CurrentVal: 77,
+				CurrentValText: "航空公司",
+				Category: [
+					{
+						Label: "旅游企业",
+						List: [
+							{
+								Tag: 77,
+								Text: "航空公司"
+							},
+							{
+								Tag: 78,
+								Text: "酒店/非标准住宿"
+							},
+							{
+								Tag: 79,
+								Text: "在线旅游"
+							},
+							{
+								Tag: 80,
+								Text: "旅行社机票代理人"
+							},
+							{
+								Tag: 81,
+								Text: "目的地景区"
+							},
+							{
+								Tag: 82,
+								Text: "旅游局"
+							},
+							{
+								Tag: 83,
+								Text: "交通出行"
+							},
+							{
+								Tag: 203,
+								Text: "差旅管理/会奖旅游"
+							},
+							{
+								Tag: 204,
+								Text: "综合型旅游文化企业"
+							},
+							{
+								Tag: 143,
+								Text: "GDS"
+							},
+							{
+								Tag: 326,
+								Text: "邮轮"
+							},
+							{
+								Tag: 141,
+								Text: "其他"
+							}
+						]
+					}
+				]
+			}
 		}
 	},
 	components: {
-		MenuTitle
+		MenuTitle,
+		IndustrySimulateSelect
 	},
 	computed: {
 		CurrentActivity() {
@@ -217,17 +278,36 @@ export default {
 		}
 	},
 	methods: {
+		deepCopy(obj) {
+			// 定义一个对象，用来确定当前的参数是数组还是对象
+			var objArray = Array.isArray(obj) ? [] : {};
+			// 如果obj存在，且类型为对象
+			if(obj && typeof obj === "object") {
+				for(var key in obj) {
+					if(obj.hasOwnProperty(key)) {
+						// 如果obj的子元素是对象，递归操作
+						if(obj[key] && typeof obj[key] === "object") {
+							objArray[key] = deepCopy(obj[key]);
+						} else {
+							// 如果不是，直接赋值
+							objArray[key] = obj[key];
+						}
+					}
+				}
+			}
+			return objArray;
+		},
 		showChangeAllotBox(willChangeAllot) {
 			this.isShowChangeAllotBox = true
 			this.willChange = willChangeAllot
+			this.cloneWillChange = this.deepCopy(willChangeAllot)
 		},
 		closeChangeAllot() {
+			this.cloneWillChange = this.willChange;
 			this.isShowChangeAllotBox = false;
 			this.isShowIndustryBox = false;
-			this.willChange = {}
-		},
-		showIndustryBox() {
-			this.isShowIndustryBox = !this.isShowIndustryBox;
+			this.willChange = {};
+			console.log(this)
 		},
 		chooseIndustry(event) {
 			console.log(event)
@@ -471,62 +551,6 @@ export default {
     margin-top: -4px;
     margin-right: 8px;
     zoom: 1;
-}
-.industrySelect {
-    box-sizing: border-box;
-    overflow: hidden;
-    background: url(../assets/caret.png) #F8F8F8 right 10px center no-repeat;
-}
-.industryShow {
-    width: 100%;
-    height: 100%;
-    line-height: 38px;
-    float: left;
-	.industryTag {
-		line-height: 38px;
-	}
-}
-.industryBox {
-    box-sizing: border-box;
-    position: absolute;
-    bottom: 100%;
-    width: 100%;
-    height: 300px;
-    padding: 5px;
-    background-color: #fff;
-    border: 1px solid #999;
-    border-bottom: 0;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    z-index: 100;
-    // display: none;
-}
-.industryGroup {
-    overflow: hidden;
-    margin-bottom: 15px;
-}
-.industryLabel, .industryCategory {
-    display: inline-block;
-    vertical-align: top;
-    font-size: 14px;
-}
-.industryLabel {
-    width: 90px;
-    line-height: 25px;
-    text-align: center;
-    font-weight: bold;
-}
-.industryCategory {
-    width: calc(100% - 95px);
-    width: -webkit-calc(100% - 95px);
-    width: -moz-calc(100% - 95px);
-    overflow: hidden;
-}
-.industryTag {
-    float: left;
-    line-height: 25px;
-    margin: 0 20px 0 0;
-    cursor: pointer;
 }
 .submitChangeAllot {
     display: block;
