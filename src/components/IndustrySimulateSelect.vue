@@ -1,13 +1,13 @@
 <template>
 	<div class="industrySelect" tabindex="0">
 		<div @click="showIndustryBox" class="industryShow">
-			<span v-bind:data-tag="Industry.CurrentVal" class="industryTag">{{ Industry.CurrentValText }}</span>
+			<span v-bind:data-tag="currentIndustry.currentTag" class="industryTag">{{ currentIndustry.currentTagText }}</span>
 		</div>
 		<div v-show="isShowIndustryBox" class="industryBox">
-			<div v-for="(industry, index) in Industry.Category" :key="index" class="industryGroup">
-				<span class="industryLabel">{{ industry.Label }}</span>
+			<div v-for="(industry, index) in category" :key="index" class="industryGroup">
+				<span class="industryLabel">{{ industry.label }}</span>
 				<div @click="chooseTag" class="industryCategory">
-					<span v-for="(tag, index) in industry.List" :key="index" :data-tag="tag.Tag" class="industryTag">{{ tag.Text }}</span>
+					<span v-for="(tag, index) in industry.list" :key="index" :data-tag="tag.tag" class="industryTag">{{ tag.text }}</span>
 				</div>
 			</div>
 		</div>
@@ -17,22 +17,80 @@
 <script>
 export default {
 	props: {
-		Industry: {
-			require: true,
+		currentIndustry: {
 			type: Object
+		},
+		isShowIndustryBox: {
+			type: Boolean
 		}
 	},
 	data() {
 		return {
-			isShowIndustryBox: false
+			category: [
+				{
+					label: "旅游企业",
+					list: [
+						{
+							tag: 77,
+							text: "航空公司"
+						},
+						{
+							tag: 78,
+							text: "酒店/非标住宿"
+						},
+						{
+							tag: 79,
+							text: "在线旅游"
+						},
+						{
+							tag: 80,
+							text: "旅行社/机票代理人"
+						},
+						{
+							tag: 81,
+							text: "目的地景区"
+						},
+						{
+							tag: 82,
+							text: "旅游局"
+						},
+						{
+							tag: 83,
+							text: "交通出行"
+						},
+						{
+							tag: 203,
+							text: "差旅管理/会奖旅游"
+						},
+						{
+							tag: 204,
+							text: "综合型旅游文化企业"
+						},
+						{
+							tag: 143,
+							text: "GDS"
+						},
+						{
+							tag: 326,
+							text: "邮轮"
+						},
+						{
+							tag: 141,
+							text: "其他"
+						}
+					]
+				}
+			]
 		}
 	},
 	methods: {
 		showIndustryBox() {
-			this.isShowIndustryBox = !this.isShowIndustryBox;
+			this.$emit("switchIndustryBox");
 		},
 		chooseTag(event) {
-			console.log(event)
+			var e = window.event || event,
+				target = e.target;
+			this.$emit("selectTag", { tag: target.dataset.tag, tagText: target.innerText })
 		}
 	}
 }

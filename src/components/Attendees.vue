@@ -153,7 +153,7 @@
 									</div>
 								</div>
 							</div> -->
-							<IndustrySimulateSelect :Industry="industry" class="allotInput"></IndustrySimulateSelect>
+							<IndustrySimulateSelect @switchIndustryBox="switchIndustryBox" @selectTag="selectTag" :currentIndustry="{ currentTag: cloneWillChange.Industry, currentTagText: cloneWillChange.IndustryText }" :isShowIndustryBox="isShowIndustryBox" class="allotInput"></IndustrySimulateSelect>
 							<p class="formTips"></p>
 						</div>
 					</li>
@@ -196,67 +196,9 @@ export default {
 			menuTitle: "参会人员信息管理",
 			// AllotList: [],
 			isShowChangeAllotBox: false,
+			isShowIndustryBox: false,
 			willChange: {},
-			cloneWillChange: {},
-			industry: {
-				CurrentVal: 77,
-				CurrentValText: "航空公司",
-				Category: [
-					{
-						Label: "旅游企业",
-						List: [
-							{
-								Tag: 77,
-								Text: "航空公司"
-							},
-							{
-								Tag: 78,
-								Text: "酒店/非标准住宿"
-							},
-							{
-								Tag: 79,
-								Text: "在线旅游"
-							},
-							{
-								Tag: 80,
-								Text: "旅行社机票代理人"
-							},
-							{
-								Tag: 81,
-								Text: "目的地景区"
-							},
-							{
-								Tag: 82,
-								Text: "旅游局"
-							},
-							{
-								Tag: 83,
-								Text: "交通出行"
-							},
-							{
-								Tag: 203,
-								Text: "差旅管理/会奖旅游"
-							},
-							{
-								Tag: 204,
-								Text: "综合型旅游文化企业"
-							},
-							{
-								Tag: 143,
-								Text: "GDS"
-							},
-							{
-								Tag: 326,
-								Text: "邮轮"
-							},
-							{
-								Tag: 141,
-								Text: "其他"
-							}
-						]
-					}
-				]
-			}
+			cloneWillChange: {}
 		}
 	},
 	components: {
@@ -297,6 +239,16 @@ export default {
 			}
 			return objArray;
 		},
+		// 控制是否显示模拟行业选择组件中行业分类
+		switchIndustryBox() {
+			this.isShowIndustryBox = !this.isShowIndustryBox;
+		},
+		// 触发模拟行业选择组件中选择的行业标签
+		selectTag({ tag, tagText }) {
+			this.cloneWillChange.Industry = tag;
+			this.cloneWillChange.IndustryText = tagText;
+			this.isShowIndustryBox = false;
+		},
 		showChangeAllotBox(willChangeAllot) {
 			this.isShowChangeAllotBox = true
 			this.willChange = willChangeAllot
@@ -308,9 +260,6 @@ export default {
 			this.isShowIndustryBox = false;
 			this.willChange = {};
 			console.log(this)
-		},
-		chooseIndustry(event) {
-			console.log(event)
 		},
 		submitChangeAllot() {
 			console.log(this.willChange)
