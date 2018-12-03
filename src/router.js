@@ -8,6 +8,7 @@ import Orders from "@/views/Orders.vue"
 import Login from "./views/Login.vue"
 
 import MyOrder from "@/components/MyOrder.vue"
+import Allot from "@/components/Allot.vue"
 import Attendees from "@/components/Attendees.vue"
 import InvoiceList from "@/components/InvoiceList.vue"
 
@@ -31,18 +32,34 @@ export default new Router({
 					children: [
 						{
 							path: "",
-							component: MyOrder
+							component: MyOrder,
 						},
 						{
-							path: "attendees",
+							path: "allocation",
+							component: Allot
+						}
+					]
+				},
+				{
+					path: "attendees",
+					component: Orders,
+					children: [
+						{
+							path: "",
 							component: Attendees
-						},
+						}
+					]
+				},
+				{
+					path: "invoicelist",
+					component: Orders,
+					children: [
 						{
-							path: "invoicelist",
+							path: "",
 							component: InvoiceList
 						}
 					]
-				}
+				},
 			]
 		},
 		{

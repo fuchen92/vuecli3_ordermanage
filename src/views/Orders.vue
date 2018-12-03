@@ -3,9 +3,9 @@
 		<ActivityBar :CurrentActivity="CurrentActivity"></ActivityBar>
 		<div class="orderContent">
 			<div class="siderbarMenu lt">
-				<router-link class="siderbarMenuItem" :to="'/orders?no=' + this.$route.query.no" active-class="active" exact>我的订单</router-link>
-				<router-link class="siderbarMenuItem" :to="'/orders/attendees?no=' + this.$route.query.no" active-class="active">参会人员信息管理</router-link>
-				<router-link class="siderbarMenuItem" :to="'/orders/invoicelist?no=' + this.$route.query.no" active-class="active">发票管理</router-link>
+				<router-link ref="myorder" class="siderbarMenuItem" :to="'/orders/?no=' + this.$route.query.no" active-class="active">我的订单</router-link>
+				<router-link class="siderbarMenuItem" :to="'/attendees?no=' + this.$route.query.no" active-class="active">参会人员信息管理</router-link>
+				<router-link class="siderbarMenuItem" :to="'/invoicelist?no=' + this.$route.query.no" active-class="active">发票管理</router-link>
 			</div>
 			<router-view class="rt"></router-view>
 		</div>
@@ -15,6 +15,12 @@
 <script>
 import ActivityBar from "@/components/ActivityBar"
 export default {
+	beforeUpdate() {
+		if(this.$route.query.orderId) {
+
+			this.$refs.myorder.$el.classList.add("active");
+		}
+	},
 	data() {
 		return {
 			// no: this.$route.query.no

@@ -84,7 +84,7 @@
 															<span class="noPayTipText">该订单{{ order.PayStatus == 5 ? "已取消" : "未支付" }}，分配无效。</span>
 														</span>
 													</template>
-													<router-link v-else-if="ticket.Allot == 0" class="allotLink" :to="{ path: '/orders/allocation', query: { no: $route.query.no, orderId: order.Id, ticketType: ticket.Type }}">分配参会人</router-link>
+													<router-link v-else-if="ticket.Allot == 0" class="allotLink" :to="{ path: 'orders/allocation', query: { no: $route.query.no, orderId: order.Id, ticketType: ticket.Type }}">分配参会人</router-link>
 													<span class="allotStatus" v-else-if="ticket.Allot == ticket.Amount">已全部分配</span>
 													<template v-else>
 														<span class="allotStatus">有{{ ticket.Amount - ticket.Allot }}张未分配</span>

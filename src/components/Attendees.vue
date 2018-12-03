@@ -86,11 +86,11 @@
 				<ul class="changeAllotForm">
 					<li class="formGroup">
 						<div class="formItem lt">
-							<input v-model.lazy="cloneWillChange.NameCn" class="allotInput" placeholder="中文姓名">
+							<input v-model.lazy="cloneWillChange.NameCn" ref="formInput1" class="allotInput" placeholder="中文姓名" data-role='[{ "name": "中文姓名" }]'>
 							<p class="formTips"></p>
 						</div>
 						<div class="formItem rt">
-							<input v-model="cloneWillChange.NameEn" class="allotInput" placeholder="英文姓名">
+							<input v-model="cloneWillChange.NameEn" ref="formInput2" class="allotInput" placeholder="英文姓名">
 							<p class="formTips"></p>
 						</div>
 					</li>
@@ -220,6 +220,41 @@ export default {
 		}
 	},
 	methods: {
+		// 验证函数
+		validate (ele) {
+			hasTip = false;
+			var attr = ele.attr("data-role");
+			var formTips = ele.nextAll(".form-tips");
+			if (attr && !ele.is("div")) {
+				var role = eval(attr);
+				var currVal = ele.val().trim();
+				if (role && role.length > 0) {
+					if (!currVal || currVal.length == 0 || currVal == "0") {
+						if (!hasTip) {
+							formTips.html( (ele.is("select") ? "请选择" : "请输入") + role[0].name ).show();
+							hasTip = true;
+						}
+						return false;
+					}
+					if (role[0].reg && !eval(role[0].reg).test(currVal)) {
+						if (!hasTip) {
+							formTips.html(role[0].name + "格式不正确，请检查").show();
+							hasTip = true;
+						}
+						return false;
+					}
+				}
+			} else if (attr && ele.is("div")) {
+				if (ele.find(".industryShow").children("span").length == 0) {
+					var role = eval(attr);
+					if (!hasTip) {
+						formTips.html("请选择" + role[0].name).show();
+					}
+					return false;
+				}
+			}
+			return true;
+		},
 		deepCopy(obj) {
 			// 定义一个对象，用来确定当前的参数是数组还是对象
 			var objArray = Array.isArray(obj) ? [] : {};
@@ -262,7 +297,19 @@ export default {
 			console.log(this)
 		},
 		submitChangeAllot() {
-			console.log(this.willChange)
+			var inputs = this.$refs;
+			for(var key in inputs) {
+				if(inputs.hasOwnProperty(key)) {
+					console.log(inputs[key].dataset.role)
+					var dataRole = eval(inputs[key].dataset.role);
+					var currInput = inputs[key];
+					console.log(dataRole)
+
+				}
+			}
+			console.log(this)
+			console.log(this.$options)
+			console.log(this.$refs)
 		}
 	}
 }
