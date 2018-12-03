@@ -294,7 +294,7 @@ export default {
 			this.isShowChangeAllotBox = false;
 			this.isShowIndustryBox = false;
 			this.willChange = {};
-			console.log(this)
+			// console.log(this)
 		},
 		submitChangeAllot() {
 			var inputs = this.$refs;
@@ -307,9 +307,9 @@ export default {
 
 				}
 			}
-			console.log(this)
-			console.log(this.$options)
-			console.log(this.$refs)
+			// console.log(this)
+			// console.log(this.$options)
+			// console.log(this.$refs)
 		}
 	}
 }
