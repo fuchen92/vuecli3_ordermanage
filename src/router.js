@@ -5,6 +5,7 @@ import Router from 'vue-router'
 import Layout from "@/views/Layout.vue"
 import Index from "@/views/Index.vue"
 import Orders from "@/views/Orders.vue"
+import Account from "@/views/Account.vue"
 import Login from "./views/Login.vue"
 
 import MyOrder from "@/components/MyOrder.vue"
@@ -60,6 +61,10 @@ export default new Router({
 						}
 					]
 				},
+				{
+					path: "account",
+					component: Account
+				}
 			]
 		},
 		{
