@@ -15,12 +15,6 @@
 <script>
 import ActivityBar from "@/components/ActivityBar"
 export default {
-	beforeUpdate() {
-		if(this.$route.query.orderId) {
-
-			this.$refs.myorder.$el.classList.add("active");
-		}
-	},
 	data() {
 		return {
 			// no: this.$route.query.no

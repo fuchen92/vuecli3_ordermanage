@@ -4,14 +4,7 @@
 
 <script>
 export default {
-	// mounted() {
-	// 	console.log(this)
-	// 	console.log(this.$parent.$refs)
-	// 	this.$parent.$refs.myorder.$el.classList.add("active");
-	// },
-	// beforeDestroy() {
-	// 	this.$parent.$refs.myorder.$el.classList.remove("active");
-	// }
+
 }
 </script>
 
