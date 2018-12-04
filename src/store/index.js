@@ -36,6 +36,9 @@ export default new Vuex.Store({
 		},
 		CANCELORDERBYID(state, { no, willCancelOrderId }) {
 			Vue.set(state.Orders[no].find(order => order.Id == willCancelOrderId), "PayStatus", 5)
+		},
+		SETACCOUNTMOBILE(state, { willChangeMobile }) {
+			Vue.set(state.Account, "Mobile", willChangeMobile)
 		}
 	},
 	actions: {
@@ -65,6 +68,9 @@ export default new Vuex.Store({
 		// 根据id取消订单
 		cancelOrderById({ commit }, { no, willCancelOrderId }) {
 			commit("CANCELORDERBYID", { no, willCancelOrderId })
+		},
+		setAccountMobile({ commit }, { willChangeMobile }) {
+			commit("SETACCOUNTMOBILE", { willChangeMobile })
 		}
 	},
 	getters: {
