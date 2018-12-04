@@ -42,6 +42,7 @@ export default new Vuex.Store({
 		}
 	},
 	actions: {
+		// 初始化我的账户
 		getUserAccount({ commit }, mobile) {
 			getUserAccount(mobile).then(res => {
 				commit("INITACCOUNT", { account: res.data.Account })
@@ -69,6 +70,7 @@ export default new Vuex.Store({
 		cancelOrderById({ commit }, { no, willCancelOrderId }) {
 			commit("CANCELORDERBYID", { no, willCancelOrderId })
 		},
+		// 修改我的账户手机
 		setAccountMobile({ commit }, { willChangeMobile }) {
 			commit("SETACCOUNTMOBILE", { willChangeMobile })
 		}
