@@ -27,7 +27,7 @@
 							<div class="infoColumn columnFirst lt">姓名：</div>
 							<div class="infoColumn columnSecond lt">
 								<p class="infoName" v-show="!isShowNameInput">{{ Name }}</p>
-								<input class="infoInput" :class="{ 'changeActive': isShowNameInput }" v-show="isShowNameInput" v-model="localAccount.Name" :placeholder="Name">
+								<input class="infoInput" :class="{ 'changeActive': isShowNameInput }" ref="name" v-show="isShowNameInput" v-model="localAccount.Name" :placeholder="Name">
 							</div>
 							<div class="infoColumn columnThird lt">
 								<button class="changeBtn" @click="switchShowInput($event.target)" data-type="name">{{ nameButtonText }}</button>
@@ -37,7 +37,7 @@
 							<div class="infoColumn columnFirst lt">所属公司：</div>
 							<div class="infoColumn columnSecond lt">
 								<p class="infoName" v-show="!isShowCompanyInput">{{ Company }}</p>
-								<input class="infoInput" :class="{ 'changeActive': isShowCompanyInput }" v-show="isShowCompanyInput" v-model="localAccount.Company" :placeholder="Company">
+								<input class="infoInput" :class="{ 'changeActive': isShowCompanyInput }" ref="company" v-show="isShowCompanyInput" v-model="localAccount.Company" :placeholder="Company">
 							</div>
 							<div class="infoColumn columnThird lt">
 								<button class="changeBtn" @click="switchShowInput($event.target)" data-type="company">{{ companyButtonText }}</button>
@@ -47,7 +47,7 @@
 							<div class="infoColumn columnFirst lt">职位：</div>
 							<div class="infoColumn columnSecond lt">
 								<p class="infoName" v-show="!isShowJobInput">{{ Job }}</p>
-								<input class="infoInput" :class="{ 'changeActive': isShowJobInput }" v-show="isShowJobInput" v-model="localAccount.Job" :placeholder="Job">
+								<input class="infoInput" :class="{ 'changeActive': isShowJobInput }" ref="job" v-show="isShowJobInput" v-model="localAccount.Job" :placeholder="Job">
 							</div>
 							<div class="infoColumn columnThird lt">
 								<button class="changeBtn" @click="switchShowInput($event.target)" data-type="job">{{ jobButtonText }}</button>
@@ -57,7 +57,7 @@
 							<div class="infoColumn columnFirst lt">固话：</div>
 							<div class="infoColumn columnSecond lt">
 								<p class="infoName" v-show="!isShowTelInput">{{ Tel }}</p>
-								<input class="infoInput" :class="{ 'changeActive': isShowTelInput }" v-show="isShowTelInput" v-model="localAccount.Tel" :placeholder="Tel">
+								<input class="infoInput" :class="{ 'changeActive': isShowTelInput }" ref="tel" v-show="isShowTelInput" v-model="localAccount.Tel" :placeholder="Tel">
 							</div>
 							<div class="infoColumn columnThird lt">
 								<button class="changeBtn" @click="switchShowInput($event.target)" data-type="tel">{{ telButtonText }}</button>
@@ -67,7 +67,7 @@
 							<div class="infoColumn columnFirst lt">邮箱：</div>
 							<div class="infoColumn columnSecond lt">
 								<p class="infoName" v-show="!isShowEmailInput">{{ Email }}</p>
-								<input class="infoInput" :class="{ 'changeActive': isShowEmailInput }" v-show="isShowEmailInput" v-model="localAccount.Email" :placeholder="Email">
+								<input class="infoInput" :class="{ 'changeActive': isShowEmailInput }" ref="email" v-show="isShowEmailInput" v-model="localAccount.Email" :placeholder="Email">
 							</div>
 							<div class="infoColumn columnThird lt">
 								<button class="changeBtn" @click="switchShowInput($event.target)" data-type="email">{{ emailButtonText }}</button>
@@ -257,7 +257,39 @@ export default {
 			this.isShowDialog = false;
 		},
 		submitChangeAccount() {
+			var originArr = [
+					{ val: this.localAccount.Name, needValidate: this.isShowNameInput, ref: this.$refs.name, tip: "姓名" },
+					{ val: this.localAccount.Company, needValidate: this.isShowCompanyInput, ref: this.$refs.company, tip: "公司" },
+					{ val: this.localAccount.Job, needValidate: this.isShowJobInput, ref: this.$refs.job, tip: "职位" },
+					{ val: this.localAccount.Tel, needValidate: this.isShowTelInput, ref: this.$refs.tel, tip: "电话" },
+					{ val: this.localAccount.Email, needValidate: this.isShowEmailInput, ref: this.$refs.email, tip: "邮箱" }
+				];
 
+			var tempArr = originArr.filter(item => item.needValidate);
+			console.log(tempArr)
+			console.log(this)
+			for(var i = 0; i < tempArr.length; i++) {
+				if(tempArr[i].needValidate) {
+					if(tempArr[i].val == "" || tempArr[i].val.length == 0) {
+						alert("请输入" + tempArr[i].tip);
+						tempArr[i].ref.focus();
+						return;
+					}
+				}
+			}
+			var newAccount = {
+				name: this.localAccount.Name,
+				company: this.localAccount.Company,
+				job: this.localAccount.Job,
+				tel: this.localAccount.Tel,
+				email: this.localAccount.Email
+			}
+			this.setAccount(newAccount)
+			this.isShowNameInput = false;
+			this.isShowCompanyInput = false;
+			this.isShowJobInput = false;
+			this.isShowTelInput = false;
+			this.isShowEmailInput = false;
 		},
 		/*...mapActions([
 			'increment', // 将 `this.increment()` 映射为 `this.$store.dispatch('increment')`
@@ -266,7 +298,8 @@ export default {
 			'incrementBy' // 将 `this.incrementBy(amount)` 映射为 `this.$store.dispatch('incrementBy', amount)`
 		]),*/
 		...mapActions([
-			"setAccountMobile"
+			"setAccountMobile",
+			"setAccount"
 		])
 	}
 }

@@ -39,6 +39,13 @@ export default new Vuex.Store({
 		},
 		SETACCOUNTMOBILE(state, { willChangeMobile }) {
 			Vue.set(state.Account, "Mobile", willChangeMobile)
+		},
+		SETACCOUNT(state, newAccount) {
+			Vue.set(state.Account, "Name", newAccount.name);
+			Vue.set(state.Account, "Company", newAccount.company);
+			Vue.set(state.Account, "Job", newAccount.job);
+			Vue.set(state.Account, "Tel", newAccount.tel);
+			Vue.set(state.Account, "Email", newAccount.email);
 		}
 	},
 	actions: {
@@ -70,9 +77,13 @@ export default new Vuex.Store({
 		cancelOrderById({ commit }, { no, willCancelOrderId }) {
 			commit("CANCELORDERBYID", { no, willCancelOrderId })
 		},
-		// 修改我的账户手机
+		// 修改我的账户--手机
 		setAccountMobile({ commit }, { willChangeMobile }) {
 			commit("SETACCOUNTMOBILE", { willChangeMobile })
+		},
+		// 修改我的账户
+		setAccount({ commit }, newAccount ) {
+			commit("SETACCOUNT", newAccount)
 		}
 	},
 	getters: {
@@ -82,9 +93,9 @@ export default new Vuex.Store({
 		},
 		// 根据no获取当前活动的订单
 		getCurrentOrderList: (state) => (no, filterKeyWord) => {
-			if(filterKeyWord === "all") {
+			if(filterKeyWord === "all") {	// 所有订单
 				return state.Orders[no]
-			} else {
+			} else {						// 已付款订单
 				return state.Orders[no].filter(order => {
 					return order.PayStatus == 1
 				})
